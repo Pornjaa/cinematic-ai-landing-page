@@ -32,6 +32,15 @@ const ArticlesPage: React.FC<ArticlesPageProps> = ({ onReadArticle }) => {
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
+                
+                {/* Play Button Overlay for Video Articles */}
+                {article.youtubeId && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-12 h-12 bg-cinematic-accent/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                      <svg className="w-5 h-5 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="p-6">
                 <div className="text-cinematic-accent text-sm font-medium mb-2">{article.date}</div>
@@ -42,7 +51,7 @@ const ArticlesPage: React.FC<ArticlesPageProps> = ({ onReadArticle }) => {
                   {article.excerpt}
                 </p>
                 <span className="text-cinematic-accent text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                  อ่านเพิ่มเติม 
+                  {article.youtubeId ? 'รับชมวิดีโอ' : 'อ่านเพิ่มเติม'}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </span>
               </div>

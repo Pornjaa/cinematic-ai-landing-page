@@ -39,12 +39,24 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack
           <span>By Cinematic AI Team</span>
         </div>
 
-        <div className="mb-10 rounded-2xl overflow-hidden shadow-2xl">
-          <img 
-            src={article.image} 
-            alt={article.title} 
-            className="w-full h-auto object-cover"
-          />
+        <div className="mb-10 rounded-2xl overflow-hidden shadow-2xl bg-black">
+          {article.youtubeId ? (
+            <div className="relative aspect-video">
+              <iframe 
+                src={`https://www.youtube.com/embed/${article.youtubeId}`}
+                title={article.title}
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          ) : (
+            <img 
+              src={article.image} 
+              alt={article.title} 
+              className="w-full h-auto object-cover"
+            />
+          )}
         </div>
 
         <div className="prose prose-lg prose-invert max-w-none text-gray-300 font-light">

@@ -35,4 +35,5 @@ export interface Article {
   content: string[]; // Array of paragraphs for simple rendering
   image: string;
   date: string;
+  youtubeId?: string; // Optional YouTube video ID for video articles
 }
