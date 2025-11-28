@@ -12,6 +12,9 @@ const EnrollmentPage: React.FC = () => {
     phone: '',
   });
   
+  // File Upload State
+  const [fileName, setFileName] = useState('');
+  
   // Submission State
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -36,6 +39,14 @@ const EnrollmentPage: React.FC = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFileName(e.target.files[0].name);
+    } else {
+      setFileName('');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -110,7 +121,6 @@ const EnrollmentPage: React.FC = () => {
             name="enrollment" 
             onSubmit={handleSubmit}
             data-netlify="true"
-            // Remove method="POST" to handle via JS
             className="space-y-6"
           >
             {/* Netlify Form Hidden Field */}
@@ -213,20 +223,30 @@ const EnrollmentPage: React.FC = () => {
             {/* Slip Upload */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">แนบสลิปการโอนเงิน</label>
-              <div className="relative border-2 border-dashed border-gray-600 rounded-lg p-6 text-center hover:border-cinematic-accent transition-colors bg-cinematic-900/50">
+              <div className={`relative border-2 border-dashed rounded-lg p-6 text-center transition-colors bg-cinematic-900/50 ${fileName ? 'border-green-500/50 bg-green-500/10' : 'border-gray-600 hover:border-cinematic-accent'}`}>
                 <input 
                   type="file" 
                   name="slip" 
                   required
                   accept="image/*"
+                  onChange={handleFileChange}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
-                <div className="text-gray-400 pointer-events-none">
-                  <svg className="mx-auto h-10 w-10 text-gray-500 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <p className="text-sm">คลิกเพื่ออัปโหลดสลิป หรือลากไฟล์มาวางที่นี่</p>
-                </div>
+                
+                {fileName ? (
+                   <div className="pointer-events-none">
+                      <svg className="mx-auto h-10 w-10 text-green-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                      <p className="text-sm text-green-400 font-medium">แนบไฟล์สำเร็จ: {fileName}</p>
+                      <p className="text-xs text-gray-500 mt-1">คลิกเพื่อเปลี่ยนไฟล์</p>
+                   </div>
+                ) : (
+                  <div className="text-gray-400 pointer-events-none">
+                    <svg className="mx-auto h-10 w-10 text-gray-500 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <p className="text-sm">คลิกเพื่ออัปโหลดสลิป หรือลากไฟล์มาวางที่นี่</p>
+                  </div>
+                )}
               </div>
             </div>
 
