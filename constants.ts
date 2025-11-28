@@ -8,7 +8,7 @@ export const TIKTOK_URL = "https://www.tiktok.com/@cinematicaiofficial";
 export const BANK_DETAILS = {
   bankName: "ธนาคารกสิกรไทย (KBANK)",
   accountName: "นาย พรอนันต์ เสริมสุข",
-  accountNumber: "985-516-6388"
+  accountNumber: "119-242-8293"
 };
 
 export const NAV_ITEMS: NavItem[] = [
