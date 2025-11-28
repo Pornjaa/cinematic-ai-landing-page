@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { BANK_DETAILS } from '../constants';
 
@@ -14,6 +13,7 @@ const EnrollmentPage: React.FC = () => {
   
   // File Upload State
   const [fileName, setFileName] = useState('');
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   
   // Submission State
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,9 +43,14 @@ const EnrollmentPage: React.FC = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setFileName(e.target.files[0].name);
+      const file = e.target.files[0];
+      setFileName(file.name);
+      // Create a preview URL for the selected image
+      const objectUrl = URL.createObjectURL(file);
+      setPreviewUrl(objectUrl);
     } else {
       setFileName('');
+      setPreviewUrl(null);
     }
   };
 
@@ -230,14 +235,17 @@ const EnrollmentPage: React.FC = () => {
                   required
                   accept="image/*"
                   onChange={handleFileChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
                 
-                {fileName ? (
-                   <div className="pointer-events-none">
-                      <svg className="mx-auto h-10 w-10 text-green-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                      <p className="text-sm text-green-400 font-medium">แนบไฟล์สำเร็จ: {fileName}</p>
-                      <p className="text-xs text-gray-500 mt-1">คลิกเพื่อเปลี่ยนไฟล์</p>
+                {previewUrl ? (
+                   <div className="pointer-events-none relative z-0">
+                      <img src={previewUrl} alt="Slip Preview" className="mx-auto max-h-64 rounded-lg shadow-md mb-3 object-contain" />
+                      <div className="flex items-center justify-center gap-2 text-green-400">
+                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                        <p className="text-sm font-medium">แนบไฟล์สำเร็จ: {fileName}</p>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">คลิกพื้นที่นี้เพื่อเปลี่ยนรูป</p>
                    </div>
                 ) : (
                   <div className="text-gray-400 pointer-events-none">
