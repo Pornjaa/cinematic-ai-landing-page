@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { INITIAL_PORTFOLIO } from '../constants';
+import { HOME_PORTFOLIO_ITEMS } from '../constants';
 
 const Portfolio: React.FC = () => {
   // Helper to get YouTube ID
@@ -13,14 +14,13 @@ const Portfolio: React.FC = () => {
     <section id="portfolio" className="py-20 bg-cinematic-900 text-white">
       <div className="container mx-auto px-6">
         <div className="mb-16 text-center">
-          <h2 className="text-4xl font-display font-bold mb-4">ผลงานของเรา</h2>
+          <h2 className="text-4xl font-display font-bold mb-4">Showreel</h2>
           <div className="h-1 w-20 bg-cinematic-accent mx-auto rounded-full"></div>
-          <p className="mt-4 text-gray-400">ตัวอย่างผลงานภาพยนตร์สั้นและโฆษณาที่สร้างด้วย AI 100%</p>
+          <p className="mt-4 text-gray-400">ตัวอย่างผลงานภาพยนตร์สั้นและโฆษณาบางส่วน</p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-8">
-          {/* Slice to show only the first 2 items */}
-          {INITIAL_PORTFOLIO.slice(0, 2).map((item) => {
+          {HOME_PORTFOLIO_ITEMS.map((item) => {
             const videoId = getYouTubeId(item.youtubeUrl);
             return (
               <div key={item.id} className="w-full md:w-[48%] group bg-cinematic-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">

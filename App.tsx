@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -8,6 +9,7 @@ import ArticlesPage from './components/ArticlesPage';
 import ArticleDetailPage from './components/ArticleDetailPage';
 import FreeTutorialsPage from './components/FreeTutorialsPage';
 import EnrollmentPage from './components/EnrollmentPage';
+import ShowreelPage from './components/ShowreelPage';
 import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL } from './constants';
 
 const App: React.FC = () => {
@@ -16,19 +18,7 @@ const App: React.FC = () => {
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
 
   const handleNavigate = (pageId: string) => {
-    if (pageId === 'portfolio') {
-      // If on another page, go home first then scroll
-      if (currentPage !== 'home') {
-        setCurrentPage('home');
-        setTimeout(() => {
-          const element = document.getElementById(pageId);
-          if (element) element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      } else {
-        const element = document.getElementById(pageId);
-        if (element) element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else if (pageId === 'apply') {
+    if (pageId === 'apply') {
       // Go to courses page and scroll to enroll section
        setCurrentPage('courses');
        setTimeout(() => {
@@ -60,6 +50,10 @@ const App: React.FC = () => {
             <Portfolio />
             <OnsiteAtmosphere />
           </>
+        )}
+
+        {currentPage === 'showreel-page' && (
+          <ShowreelPage />
         )}
 
         {currentPage === 'courses' && (

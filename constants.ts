@@ -1,3 +1,4 @@
+
 import { NavItem, PortfolioItem, Course, Article, FreeTutorialItem } from './types';
 
 export const FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61563219540499";
@@ -14,8 +15,8 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'หน้าแรก', id: 'home' },
   { label: 'คอร์สเรียนทั้งหมด', id: 'courses' },
   { label: 'บทความ', id: 'articles' },
-  { label: 'ผลงานของเรา', id: 'portfolio' },
-  { label: 'Free Tutorial', id: 'free-tutorials', isButton: true }, // Now the primary CTA button
+  { label: 'ผลงานของเรา', id: 'showreel-page' }, // Link to separate page
+  { label: 'Free Tutorial', id: 'free-tutorials', isButton: true },
 ];
 
 export const FREE_TUTORIALS_DATA: FreeTutorialItem[] = [
@@ -41,7 +42,8 @@ export const FREE_TUTORIALS_DATA: FreeTutorialItem[] = [
   }
 ];
 
-export const INITIAL_PORTFOLIO: PortfolioItem[] = [
+// Items for Home Page (Showreel Section) - Only 2 items
+export const HOME_PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     id: '1',
     title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 1',
@@ -53,18 +55,46 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 2',
     description: 'ผลงานการสร้างสรรค์ภาพยนตร์และวิดีโอด้วย AI คุณภาพสูง',
     youtubeUrl: 'https://youtu.be/61wcZj5GolA?si=fOuJJxY855AXZJQS'
+  }
+];
+
+// Items for Full Showreel Page - Includes everything
+export const FULL_SHOWREEL_ITEMS: PortfolioItem[] = [
+  {
+    id: '1',
+    title: 'Cinematic AI Showcase 1',
+    description: 'ชมตัวอย่างภาพยนตร์ที่สร้างสรรค์ด้วย AI ทั้งภาพและเสียง',
+    youtubeUrl: 'https://youtu.be/vbQP5C0Y_wk?si=9oFKLChlnU12ZtxO'
+  },
+  {
+    id: '2',
+    title: 'Cinematic AI Showcase 2',
+    description: 'ผลงานการสร้างสรรค์ภาพยนตร์และวิดีโอด้วย AI คุณภาพสูง',
+    youtubeUrl: 'https://youtu.be/61wcZj5GolA?si=fOuJJxY855AXZJQS'
   },
   {
     id: '3',
-    title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 3',
+    title: 'Cinematic AI Showcase 3',
     description: 'การเล่าเรื่องผ่านภาพเคลื่อนไหวที่สร้างจากปัญญาประดิษฐ์',
-    youtubeUrl: 'https://youtu.be/CHLUElTVWyk?si=PTGP2IQIuPZ39UNo'
+    youtubeUrl: 'https://youtu.be/CHLUElTVWyk'
   },
   {
     id: '4',
-    title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 4',
+    title: 'Cinematic AI Showcase 4',
     description: 'เทคนิคการสร้าง Cinematic Video ด้วยเครื่องมือ AI ล่าสุด',
-    youtubeUrl: 'https://youtu.be/upQfwYRcO8s?si=pTEnxvA7c9D92TDP'
+    youtubeUrl: 'https://youtu.be/upQfwYRcO8s'
+  },
+  {
+    id: '5',
+    title: 'Cinematic AI Showcase 5',
+    description: 'ผลงานใหม่ล่าสุด',
+    youtubeUrl: 'https://youtu.be/Sye_EecXi7I'
+  },
+  {
+    id: '6',
+    title: 'Cinematic AI Showcase 6',
+    description: 'ผลงานใหม่ล่าสุด',
+    youtubeUrl: 'https://youtu.be/yY37ByEm8Go'
   }
 ];
 
@@ -81,7 +111,6 @@ export const ONSITE_VIDEOS = [
   }
 ];
 
-// Slideshow images provided by user
 export const HERO_BACKGROUNDS = [
   "https://i.postimg.cc/TYspy9Fb/1004.png",
   "https://i.postimg.cc/63B3s14t/en.png"
@@ -157,7 +186,7 @@ export const COURSES_DATA: Course[] = [
 ];
 
 export const ENROLLMENT_STEPS = [
-  'กด "สมัครเลย" เพื่อเข้าสู่แบบฟอร์มสมัครเรียน',
+  'กด "สมัครเรียน" เพื่อเข้าสู่แบบฟอร์มสมัครเรียน',
   'กรอกข้อมูล เลือกคอร์ส และแนบสลิปการโอนเงิน',
   'กดยืนยันการสมัคร ระบบจะทำการบันทึกข้อมูลของท่าน',
   'รอรับการติดต่อกลับจากทีมงานเพื่อยืนยันและดึงเข้ากลุ่มเรียน'
