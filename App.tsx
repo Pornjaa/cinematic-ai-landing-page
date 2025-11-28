@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
-import AiIdeaGenerator from './components/AiIdeaGenerator';
 import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL } from './constants';
 
 const App: React.FC = () => {
@@ -10,7 +9,6 @@ const App: React.FC = () => {
     <div className="min-h-screen font-sans bg-cinematic-900 text-white selection:bg-cinematic-accent selection:text-white">
       <Navbar />
       <Hero />
-      <AiIdeaGenerator />
       <Portfolio />
       
       {/* Footer */}
