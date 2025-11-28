@@ -1,7 +1,7 @@
 import React from 'react';
-import { INITIAL_PORTFOLIO } from '../constants';
+import { ONSITE_VIDEOS } from '../constants';
 
-const Portfolio: React.FC = () => {
+const OnsiteAtmosphere: React.FC = () => {
   // Helper to get YouTube ID
   const getYouTubeId = (url: string) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -10,20 +10,19 @@ const Portfolio: React.FC = () => {
   };
 
   return (
-    <section id="portfolio" className="py-20 bg-cinematic-900 text-white">
+    <section className="py-20 bg-black text-white border-t border-gray-900">
       <div className="container mx-auto px-6">
         <div className="mb-16 text-center">
-          <h2 className="text-4xl font-display font-bold mb-4">ผลงานของเรา</h2>
+          <h2 className="text-4xl font-display font-bold mb-4">บรรยากาศการสอน Onsite</h2>
           <div className="h-1 w-20 bg-cinematic-accent mx-auto rounded-full"></div>
-          <p className="mt-4 text-gray-400">ตัวอย่างผลงานภาพยนตร์สั้นและโฆษณาที่สร้างด้วย AI 100%</p>
+          <p className="mt-4 text-gray-400">ภาพบรรยากาศการเรียนการสอนแบบจับมือทำจริง</p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-8">
-          {/* Slice to show only the first 2 items */}
-          {INITIAL_PORTFOLIO.slice(0, 2).map((item) => {
+          {ONSITE_VIDEOS.map((item) => {
             const videoId = getYouTubeId(item.youtubeUrl);
             return (
-              <div key={item.id} className="w-full md:w-[48%] group bg-cinematic-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <div key={item.id} className="w-full md:w-[48%] bg-cinematic-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
                 <div className="relative w-full aspect-video">
                   {videoId ? (
                     <iframe
@@ -40,9 +39,8 @@ const Portfolio: React.FC = () => {
                     </div>
                   )}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-cinematic-accent transition-colors">{item.title}</h3>
-                  <p className="text-gray-400 text-sm font-light">{item.description}</p>
+                <div className="p-4 bg-cinematic-800">
+                   {/* Optional title or description could go here */}
                 </div>
               </div>
             );
@@ -53,4 +51,4 @@ const Portfolio: React.FC = () => {
   );
 };
 
-export default Portfolio;
+export default OnsiteAtmosphere;

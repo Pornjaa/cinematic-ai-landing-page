@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
+import OnsiteAtmosphere from './components/OnsiteAtmosphere';
 import CoursesPage from './components/CoursesPage';
 import ArticlesPage from './components/ArticlesPage';
 import ArticleDetailPage from './components/ArticleDetailPage';
@@ -56,6 +57,7 @@ const App: React.FC = () => {
           <>
             <Hero />
             <Portfolio />
+            <OnsiteAtmosphere />
           </>
         )}
 

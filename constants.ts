@@ -10,9 +10,8 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'หน้าแรก', id: 'home' },
   { label: 'คอร์สเรียนทั้งหมด', id: 'courses' },
   { label: 'บทความ', id: 'articles' },
-  { label: 'Free Tutorial', id: 'free-tutorials' }, // Added Free Tutorial link
   { label: 'ผลงานของเรา', id: 'portfolio' },
-  { label: 'สมัครเรียน', id: 'apply', isButton: true }, // Will link to enrollment section in courses
+  { label: 'Free Tutorial', id: 'free-tutorials', isButton: true }, // Now the primary CTA button
 ];
 
 export const FREE_TUTORIALS_DATA: FreeTutorialItem[] = [
@@ -62,6 +61,19 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 4',
     description: 'เทคนิคการสร้าง Cinematic Video ด้วยเครื่องมือ AI ล่าสุด',
     youtubeUrl: 'https://youtu.be/upQfwYRcO8s?si=pTEnxvA7c9D92TDP'
+  }
+];
+
+export const ONSITE_VIDEOS = [
+  {
+    id: 'onsite-1',
+    title: 'บรรยากาศการสอน Onsite (Part 1)',
+    youtubeUrl: 'https://youtu.be/6xbAv67ZE-c'
+  },
+  {
+    id: 'onsite-2',
+    title: 'บรรยากาศการสอน Onsite (Part 2)',
+    youtubeUrl: 'https://youtu.be/YpLKjbdzft8'
   }
 ];
 

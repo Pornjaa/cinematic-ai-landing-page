@@ -156,9 +156,8 @@ const Hero: React.FC = () => {
           CINEMATIC <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">AI</span>
         </h1>
         
-        <p className="text-xl md:text-2xl text-gray-200 mb-8 font-light max-w-2xl leading-relaxed">
-          ปลดล็อกศักยภาพการสร้างภาพยนตร์ระดับฮอลลีวูดด้วยพลังแห่ง AI 
-          เรียนรู้วิธีการเขียนบท สร้างสตอรี่บอร์ด และตัดต่อวิดีโอคุณภาพสูงในคอร์สเดียว
+        <p className="text-xl md:text-2xl text-gray-200 mb-8 font-light max-w-3xl leading-relaxed">
+          ปลดล็อกศักยภาพการสร้างภาพยนตร์ระดับฮอลลีวูดด้วยพลังแห่ง AI เปลี่ยนจินตนาการให้กลายเป็นจริงผ่านสื่อภาพยนตร์ได้ง่ายๆ ด้วยปลายนิ้ว ที่ Cinematic AI ทุกไอเดียเป็นจริงได้
         </p>
 
         <a 
