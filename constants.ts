@@ -4,6 +4,7 @@ import { NavItem, PortfolioItem, Course, Article, FreeTutorialItem } from './typ
 export const FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61563219540499";
 export const YOUTUBE_URL = "https://www.youtube.com/@cinematicai112";
 export const TIKTOK_URL = "https://www.tiktok.com/@cinematicaiofficial";
+export const ADMIN_EMAIL = "workanddontdie@gmail.com";
 
 export const BANK_DETAILS = {
   bankName: "ธนาคารกสิกรไทย (KBANK)",
