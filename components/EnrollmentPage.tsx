@@ -124,8 +124,8 @@ const EnrollmentPage: React.FC = () => {
         <div className="bg-cinematic-800 p-8 rounded-3xl border border-gray-700 shadow-2xl">
           <form 
             name="enrollment" 
+            method="post"
             onSubmit={handleSubmit}
-            data-netlify="true"
             className="space-y-6"
           >
             {/* Netlify Form Hidden Field */}
