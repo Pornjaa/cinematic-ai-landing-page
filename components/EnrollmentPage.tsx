@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { BANK_DETAILS } from '../constants';
 
@@ -10,6 +11,11 @@ const EnrollmentPage: React.FC = () => {
     email: '',
     phone: '',
   });
+  
+  // Submission State
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Pricing Logic
   useEffect(() => {
@@ -32,6 +38,63 @@ const EnrollmentPage: React.FC = () => {
     });
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage('');
+
+    const myForm = e.currentTarget;
+    const body = new FormData(myForm);
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        body: body,
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+        window.scrollTo(0, 0);
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    } catch (error) {
+      console.error("Submission Error:", error);
+      setErrorMessage("เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง หรือติดต่อทาง Facebook Page");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isSuccess) {
+    return (
+      <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in flex items-center justify-center">
+        <div className="container mx-auto px-6 max-w-2xl text-center">
+          <div className="bg-cinematic-800 p-10 rounded-3xl border border-green-500/50 shadow-2xl">
+            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="text-3xl font-display font-bold mb-4 text-white">แจ้งโอนเงินสำเร็จ!</h2>
+            <p className="text-gray-300 text-lg mb-8 font-light">
+              ขอบคุณที่สมัครเรียนกับ Cinematic AI<br/>
+              ทีมงานได้รับข้อมูลของท่านแล้ว และจะรีบตรวจสอบพร้อมดึงเข้ากลุ่มเรียนโดยเร็วที่สุด
+            </p>
+            <a 
+              href="https://www.facebook.com/profile.php?id=61563219540499" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block px-8 py-3 bg-cinematic-accent hover:bg-red-700 text-white font-bold rounded-full transition-colors"
+            >
+              ติดต่อทีมงานผ่าน Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in">
       <div className="container mx-auto px-6 max-w-2xl">
@@ -45,11 +108,12 @@ const EnrollmentPage: React.FC = () => {
         <div className="bg-cinematic-800 p-8 rounded-3xl border border-gray-700 shadow-2xl">
           <form 
             name="enrollment" 
-            method="POST" 
+            onSubmit={handleSubmit}
             data-netlify="true"
-            encType="multipart/form-data"
+            // Remove method="POST" to handle via JS
             className="space-y-6"
           >
+            {/* Netlify Form Hidden Field */}
             <input type="hidden" name="form-name" value="enrollment" />
             
             {/* Course Selection */}
@@ -166,12 +230,31 @@ const EnrollmentPage: React.FC = () => {
               </div>
             </div>
 
+            {errorMessage && (
+              <div className="p-3 bg-red-900/50 text-red-200 rounded-lg text-sm text-center">
+                {errorMessage}
+              </div>
+            )}
+
             <button 
               type="submit" 
-              className="w-full py-4 bg-cinematic-accent hover:bg-red-700 text-white font-bold text-lg rounded-xl shadow-lg transition-all transform hover:scale-[1.01] flex items-center justify-center gap-2"
+              disabled={isSubmitting}
+              className={`w-full py-4 bg-cinematic-accent hover:bg-red-700 text-white font-bold text-lg rounded-xl shadow-lg transition-all transform hover:scale-[1.01] flex items-center justify-center gap-2 ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              แจ้งการโอนเงิน
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  กำลังส่งข้อมูล...
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  แจ้งการโอนเงิน
+                </>
+              )}
             </button>
             <p className="text-xs text-gray-500 text-center mt-4">
               *เมื่อกดแจ้งการโอนเงิน ระบบจะบันทึกข้อมูลและแจ้งเตือนไปยังทีมงานทันที
