@@ -17,9 +17,27 @@ export const NAV_ITEMS: NavItem[] = [
 export const INITIAL_PORTFOLIO: PortfolioItem[] = [
   {
     id: '1',
-    title: 'ตัวอย่างผลงาน: Cinematic AI Showcase',
+    title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 1',
     description: 'ชมตัวอย่างภาพยนตร์ที่สร้างสรรค์ด้วย AI ทั้งภาพและเสียง',
     youtubeUrl: 'https://youtu.be/vbQP5C0Y_wk?si=9oFKLChlnU12ZtxO'
+  },
+  {
+    id: '2',
+    title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 2',
+    description: 'ผลงานการสร้างสรรค์ภาพยนตร์และวิดีโอด้วย AI คุณภาพสูง',
+    youtubeUrl: 'https://youtu.be/61wcZj5GolA?si=fOuJJxY855AXZJQS'
+  },
+  {
+    id: '3',
+    title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 3',
+    description: 'การเล่าเรื่องผ่านภาพเคลื่อนไหวที่สร้างจากปัญญาประดิษฐ์',
+    youtubeUrl: 'https://youtu.be/CHLUElTVWyk?si=PTGP2IQIuPZ39UNo'
+  },
+  {
+    id: '4',
+    title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 4',
+    description: 'เทคนิคการสร้าง Cinematic Video ด้วยเครื่องมือ AI ล่าสุด',
+    youtubeUrl: 'https://youtu.be/upQfwYRcO8s?si=pTEnxvA7c9D92TDP'
   }
 ];
 
