@@ -1,18 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
+import CoursesPage from './components/CoursesPage';
 import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL } from './constants';
 
 const App: React.FC = () => {
+  // Simple state-based router
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const handleNavigate = (pageId: string) => {
+    if (pageId === 'portfolio' || pageId === 'articles') {
+      // If on another page, go home first then scroll
+      if (currentPage !== 'home') {
+        setCurrentPage('home');
+        setTimeout(() => {
+          const element = document.getElementById(pageId);
+          if (element) element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      } else {
+        const element = document.getElementById(pageId);
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (pageId === 'apply') {
+      // Go to courses page and scroll to enroll section
+       setCurrentPage('courses');
+       setTimeout(() => {
+          const element = document.getElementById('enroll-section');
+          if (element) element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+    } else {
+      setCurrentPage(pageId);
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
-    <div className="min-h-screen font-sans bg-cinematic-900 text-white selection:bg-cinematic-accent selection:text-white">
-      <Navbar />
-      <Hero />
-      <Portfolio />
+    <div className="min-h-screen font-sans bg-cinematic-900 text-white selection:bg-cinematic-accent selection:text-white flex flex-col">
+      <Navbar onNavigate={handleNavigate} currentPage={currentPage} />
+      
+      {/* Page Content */}
+      <main className="flex-grow">
+        {currentPage === 'home' && (
+          <>
+            <Hero />
+            <Portfolio />
+            {/* Articles placeholder section if needed */}
+            <section id="articles"></section>
+          </>
+        )}
+
+        {currentPage === 'courses' && (
+          <CoursesPage />
+        )}
+      </main>
       
       {/* Footer */}
-      <footer className="bg-black py-12 border-t border-gray-900">
+      <footer className="bg-black py-12 border-t border-gray-900 mt-auto">
         <div className="container mx-auto px-6 text-center">
           <h3 className="text-2xl font-display font-bold mb-4">CINEMATIC AI</h3>
           <p className="text-gray-500 mb-8 max-w-lg mx-auto font-light">
