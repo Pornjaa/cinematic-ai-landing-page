@@ -5,6 +5,7 @@ import Portfolio from './components/Portfolio';
 import CoursesPage from './components/CoursesPage';
 import ArticlesPage from './components/ArticlesPage';
 import ArticleDetailPage from './components/ArticleDetailPage';
+import FreeTutorialsPage from './components/FreeTutorialsPage';
 import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL } from './constants';
 
 const App: React.FC = () => {
@@ -71,6 +72,10 @@ const App: React.FC = () => {
             articleId={selectedArticleId} 
             onBack={() => handleNavigate('articles')} 
           />
+        )}
+
+        {currentPage === 'free-tutorials' && (
+          <FreeTutorialsPage />
         )}
       </main>
       

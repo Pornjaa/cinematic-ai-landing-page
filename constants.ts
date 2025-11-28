@@ -1,4 +1,4 @@
-import { NavItem, PortfolioItem, Course, Article } from './types';
+import { NavItem, PortfolioItem, Course, Article, FreeTutorialItem } from './types';
 
 export const FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61563219540499";
 export const YOUTUBE_URL = "https://www.youtube.com/@cinematicai112";
@@ -10,8 +10,32 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'หน้าแรก', id: 'home' },
   { label: 'คอร์สเรียนทั้งหมด', id: 'courses' },
   { label: 'บทความ', id: 'articles' },
+  { label: 'Free Tutorial', id: 'free-tutorials' }, // Added Free Tutorial link
   { label: 'ผลงานของเรา', id: 'portfolio' },
   { label: 'สมัครเรียน', id: 'apply', isButton: true }, // Will link to enrollment section in courses
+];
+
+export const FREE_TUTORIALS_DATA: FreeTutorialItem[] = [
+  {
+    id: 'tut-1',
+    youtubeUrl: 'https://youtu.be/c1qpdXcpODc?si=kqush6y-btMZTkIG',
+    title: 'เทคนิคการสร้างภาพยนตร์ด้วย AI (ตอนที่ 1)'
+  },
+  {
+    id: 'tut-2',
+    youtubeUrl: 'https://youtu.be/mkCM0asJ2aU?si=aJQA5fAe90Gtrzi1',
+    title: 'เทคนิคการสร้างภาพยนตร์ด้วย AI (ตอนที่ 2)'
+  },
+  {
+    id: 'tut-3',
+    youtubeUrl: 'https://youtu.be/M5WHtuBHsrk?si=nZ0IO49rf2OHJ-Dr',
+    title: 'เทคนิคการสร้างภาพยนตร์ด้วย AI (ตอนที่ 3)'
+  },
+  {
+    id: 'tut-4',
+    youtubeUrl: 'https://youtu.be/0iYaud7oldg?si=s7TDnk9s9KUiwfIE',
+    title: 'เทคนิคการสร้างภาพยนตร์ด้วย AI (ตอนที่ 4)'
+  }
 ];
 
 export const INITIAL_PORTFOLIO: PortfolioItem[] = [

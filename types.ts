@@ -37,3 +37,9 @@ export interface Article {
   date: string;
   youtubeId?: string; // Optional YouTube video ID for video articles
 }
+
+export interface FreeTutorialItem {
+  id: string;
+  youtubeUrl: string;
+  title: string;
+}
