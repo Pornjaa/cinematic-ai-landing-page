@@ -17,25 +17,25 @@ const CoursesPage: React.FC = () => {
 
       <div className="container mx-auto px-6 space-y-20">
         {COURSES_DATA.map((course, index) => (
-          <div key={course.id} className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-10 items-start bg-cinematic-800/50 p-6 md:p-10 rounded-3xl border border-gray-800 hover:border-cinematic-accent/30 transition-all duration-300`}>
+          <div key={course.id} className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-10 items-stretch bg-cinematic-800/50 p-6 md:p-10 rounded-3xl border border-gray-800 hover:border-cinematic-accent/30 transition-all duration-300`}>
             
             {/* Course Image */}
             <div className="w-full lg:w-2/5 shrink-0">
-              <div className="rounded-2xl overflow-hidden shadow-2xl relative aspect-[4/5] md:aspect-video lg:aspect-[3/4]">
+              <div className="rounded-2xl overflow-hidden shadow-2xl relative h-full min-h-[300px]">
                 <img 
                   src={course.image} 
                   alt={course.title} 
-                  className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 absolute inset-0"
                 />
               </div>
             </div>
 
             {/* Course Content */}
-            <div className="w-full lg:w-3/5">
+            <div className="w-full lg:w-3/5 flex flex-col">
               <h2 className="text-3xl font-display font-bold mb-4 text-cinematic-accent">{course.title}</h2>
-              <p className="text-gray-300 mb-6 font-light leading-relaxed text-lg">{course.description}</p>
+              <p className="text-gray-300 mb-8 font-light leading-relaxed text-lg">{course.description}</p>
 
-              <div className="mb-8">
+              <div className="mb-8 flex-grow">
                 <h3 className="text-xl font-semibold mb-4 text-white border-b border-gray-700 pb-2 inline-block">เนื้อหาบทเรียน</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {course.syllabus.map((item, i) => (
@@ -52,22 +52,38 @@ const CoursesPage: React.FC = () => {
                 )}
               </div>
 
-              {/* Pricing Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {course.pricing.map((priceOption, pIndex) => (
-                  <div key={pIndex} className="bg-black/40 p-5 rounded-xl border border-gray-800 hover:bg-black/60 transition-colors">
-                    <h4 className="font-semibold text-white mb-1">{priceOption.title}</h4>
-                    {priceOption.description && (
-                      <p className="text-xs text-gray-500 mb-2">{priceOption.description}</p>
-                    )}
-                    <div className="flex items-end gap-2">
-                      <span className="text-xl font-bold text-cinematic-accent">{priceOption.price}</span>
-                      {priceOption.originalPrice && (
-                        <span className="text-sm text-gray-500 line-through mb-1">{priceOption.originalPrice}</span>
+              {/* Pricing & Action Section */}
+              <div className="bg-black/40 rounded-2xl p-6 border border-gray-800 mt-auto">
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  ตัวเลือกราคา (Pricing)
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  {course.pricing.map((priceOption, pIndex) => (
+                    <div key={pIndex} className="bg-cinematic-900/80 p-4 rounded-xl border border-gray-700/50 hover:border-gray-600 transition-colors">
+                      <h4 className="font-semibold text-gray-200 text-sm mb-1">{priceOption.title}</h4>
+                      {priceOption.description && (
+                        <p className="text-xs text-gray-500 mb-2">{priceOption.description}</p>
                       )}
+                      <div className="flex items-end gap-2 mt-auto">
+                        <span className="text-lg font-bold text-cinematic-accent">{priceOption.price}</span>
+                        {priceOption.originalPrice && (
+                          <span className="text-xs text-gray-500 line-through mb-1">{priceOption.originalPrice}</span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+
+                <a 
+                  href={GOOGLE_FORM_URL}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full block text-center py-4 bg-cinematic-accent hover:bg-red-700 text-white font-bold text-lg rounded-xl transition-all duration-300 shadow-lg hover:shadow-red-900/50 hover:scale-[1.01] active:scale-[0.99]"
+                >
+                  สมัครเรียนคอร์สนี้
+                </a>
               </div>
             </div>
           </div>
