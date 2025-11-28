@@ -1,55 +1,157 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FACEBOOK_PAGE_URL, DEFAULT_BG_IMAGE } from '../constants';
+import { FACEBOOK_PAGE_URL, HERO_BACKGROUNDS } from '../constants';
 
 const Hero: React.FC = () => {
-  const [bgImages, setBgImages] = useState<string[]>([DEFAULT_BG_IMAGE]);
+  // State for slideshow index
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
+  
+  // State for local override (from admin mode)
+  const [localBgImage, setLocalBgImage] = useState<string | null>(null);
+  
+  const [isEditMode, setIsEditMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const urlInputRef = useRef<HTMLInputElement>(null);
 
-  // Cycle through background images if multiple exist
   useEffect(() => {
-    if (bgImages.length <= 1) return;
+    // 1. Check LocalStorage for any saved custom background
+    const savedBg = localStorage.getItem('cinematic_hero_bg');
+    if (savedBg) {
+      setLocalBgImage(savedBg);
+    }
 
-    const interval = setInterval(() => {
-      setCurrentBgIndex((prev) => (prev + 1) % bgImages.length);
-    }, 5000);
+    // 2. Check URL parameters for ?edit=true to enable admin mode
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get('edit') === 'true') {
+      setIsEditMode(true);
+    }
+  }, []);
 
-    return () => clearInterval(interval);
-  }, [bgImages]);
+  // Slideshow timer
+  useEffect(() => {
+    // Only run slideshow if no local override is active
+    if (!localBgImage) {
+      const interval = setInterval(() => {
+        setCurrentBgIndex((prev) => (prev + 1) % HERO_BACKGROUNDS.length);
+      }, 5000); // Change image every 5 seconds
+      return () => clearInterval(interval);
+    }
+  }, [localBgImage]);
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const newImages: string[] = [];
-      Array.from(files).forEach(file => {
-        newImages.push(URL.createObjectURL(file));
-      });
-      // Replace default image with new uploads
-      setBgImages(newImages);
-      setCurrentBgIndex(0);
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setLocalBgImage(result);
+        try {
+          localStorage.setItem('cinematic_hero_bg', result);
+        } catch (e) {
+          console.error("Image too large", e);
+          alert("ภาพมีขนาดใหญ่เกินไปสำหรับโหมดพรีวิว (แนะนำให้ใช้ URL แทน)");
+        }
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const triggerFileUpload = () => {
-    fileInputRef.current?.click();
+  const handleUrlSubmit = () => {
+    if (urlInputRef.current?.value) {
+      const url = urlInputRef.current.value;
+      setLocalBgImage(url);
+      localStorage.setItem('cinematic_hero_bg', url);
+      urlInputRef.current.value = ''; // Clear input
+    }
+  };
+
+  const handleResetBg = () => {
+    setLocalBgImage(null);
+    localStorage.removeItem('cinematic_hero_bg');
   };
 
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-      {/* Background Layer */}
-      {bgImages.map((img, index) => (
+      {/* 
+        Background Layer System:
+        1. We map through HERO_BACKGROUNDS to create slideshow divs.
+        2. We control opacity to cross-fade between them.
+        3. If localBgImage exists, it sits on top.
+      */}
+      
+      {/* Slideshow Layers */}
+      {HERO_BACKGROUNDS.map((bg, index) => (
         <div
-          key={index}
-          className={`absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${index === currentBgIndex ? 'opacity-100' : 'opacity-0'}`}
-          style={{ backgroundImage: `url(${img})` }}
+          key={bg}
+          className={`absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
+            !localBgImage && currentBgIndex === index ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ backgroundImage: `url(${bg})` }}
         />
       ))}
 
+      {/* Local Override Layer (shown only if set) */}
+      {localBgImage && (
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center z-10"
+          style={{ backgroundImage: `url(${localBgImage})` }}
+        />
+      )}
+
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60 bg-gradient-to-b from-black/80 via-transparent to-black/90"></div>
+      <div className="absolute inset-0 z-20 bg-black/60 bg-gradient-to-b from-black/80 via-transparent to-black/90"></div>
+
+      {/* Secret Admin Controls (Only visible if ?edit=true) */}
+      {isEditMode && (
+        <div className="absolute top-24 right-6 z-50 bg-black/80 backdrop-blur border border-gray-700 p-4 rounded-lg shadow-2xl flex flex-col gap-3 w-72">
+          <span className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center">Admin Mode (Preview)</span>
+          
+          {/* File Upload */}
+          <button 
+            onClick={() => fileInputRef.current?.click()}
+            className="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white text-xs rounded border border-gray-600 transition-colors flex items-center justify-center gap-2"
+          >
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+            อัปโหลดไฟล์ (Upload)
+          </button>
+          <input 
+            type="file" 
+            ref={fileInputRef}
+            onChange={handleImageUpload}
+            className="hidden" 
+            accept="image/*"
+          />
+
+          {/* URL Input */}
+          <div className="flex gap-1">
+            <input 
+              type="text" 
+              ref={urlInputRef}
+              placeholder="วางลิงก์รูปภาพที่นี่..."
+              className="flex-1 bg-gray-900 border border-gray-600 text-white text-xs px-2 py-1 rounded focus:outline-none focus:border-cinematic-accent"
+            />
+            <button 
+              onClick={handleUrlSubmit}
+              className="bg-cinematic-accent hover:bg-red-700 text-white text-xs px-3 py-1 rounded transition-colors"
+            >
+              ใช้
+            </button>
+          </div>
+
+          <button 
+            onClick={handleResetBg}
+            className="mt-2 px-3 py-1 bg-red-900/50 hover:bg-red-900 text-red-200 text-xs rounded transition-colors"
+          >
+            รีเซ็ตเป็นสไลด์โชว์
+          </button>
+          
+          <p className="text-[10px] text-gray-500 text-center leading-tight">
+            *การเปลี่ยนภาพที่นี่เห็นเฉพาะคุณ (Local Storage)
+          </p>
+        </div>
+      )}
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
+      <div className="relative z-30 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
         <h1 className="text-6xl md:text-8xl font-display font-bold text-white mb-6 tracking-tighter drop-shadow-2xl">
           CINEMATIC <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">AI</span>
         </h1>
@@ -73,27 +175,6 @@ const Hero: React.FC = () => {
           </span>
           <span className="relative invisible">ติดตามเราบน Facebook</span>
         </a>
-
-        {/* Image Upload Control */}
-        <div className="absolute bottom-10 right-10">
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            onChange={handleFileUpload} 
-            multiple 
-            accept="image/*" 
-            className="hidden" 
-          />
-          <button 
-            onClick={triggerFileUpload}
-            className="flex items-center space-x-2 text-xs text-gray-400 hover:text-white transition-colors bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm border border-gray-700"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span>เปลี่ยนภาพพื้นหลัง</span>
-          </button>
-        </div>
       </div>
     </section>
   );

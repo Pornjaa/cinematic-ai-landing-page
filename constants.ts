@@ -20,4 +20,8 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
   }
 ];
 
-export const DEFAULT_BG_IMAGE = "https://picsum.photos/1920/1080";
+// Slideshow images provided by user
+export const HERO_BACKGROUNDS = [
+  "https://i.postimg.cc/TYspy9Fb/1004.png",
+  "https://i.postimg.cc/63B3s14t/en.png"
+];
