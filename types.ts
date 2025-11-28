@@ -10,7 +10,3 @@ export interface NavItem {
   href: string;
   isButton?: boolean;
 }
-
-export enum GeminiModel {
-  FLASH = 'gemini-2.5-flash',
-}
