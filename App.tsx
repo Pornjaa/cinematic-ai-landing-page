@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
@@ -7,6 +7,7 @@ import CoursesPage from './components/CoursesPage';
 import ArticlesPage from './components/ArticlesPage';
 import ArticleDetailPage from './components/ArticleDetailPage';
 import FreeTutorialsPage from './components/FreeTutorialsPage';
+import EnrollmentPage from './components/EnrollmentPage';
 import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL } from './constants';
 
 const App: React.FC = () => {
@@ -62,7 +63,7 @@ const App: React.FC = () => {
         )}
 
         {currentPage === 'courses' && (
-          <CoursesPage />
+          <CoursesPage onNavigate={handleNavigate} />
         )}
 
         {currentPage === 'articles' && (
@@ -78,6 +79,10 @@ const App: React.FC = () => {
 
         {currentPage === 'free-tutorials' && (
           <FreeTutorialsPage />
+        )}
+
+        {currentPage === 'enroll' && (
+          <EnrollmentPage />
         )}
       </main>
       

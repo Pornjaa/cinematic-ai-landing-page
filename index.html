@@ -45,7 +45,7 @@
         background: #555;
       }
     </style>
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",
@@ -59,6 +59,18 @@
 </head>
   <body>
     <div id="root"></div>
+    
+    <!-- Netlify Form Detection (Hidden) -->
+    <form name="enrollment" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="course" />
+      <input type="text" name="studyType" />
+      <input type="text" name="final_price" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="file" name="slip" />
+    </form>
+
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>

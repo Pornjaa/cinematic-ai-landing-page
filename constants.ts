@@ -3,8 +3,12 @@ import { NavItem, PortfolioItem, Course, Article, FreeTutorialItem } from './typ
 export const FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61563219540499";
 export const YOUTUBE_URL = "https://www.youtube.com/@cinematicai112";
 export const TIKTOK_URL = "https://www.tiktok.com/@cinematicaiofficial";
-// Placeholder for Google Form since none was provided in prompt
-export const GOOGLE_FORM_URL = "https://docs.google.com/forms/"; 
+
+export const BANK_DETAILS = {
+  bankName: "ธนาคารกสิกรไทย (KBANK)",
+  accountName: "นาย พรอนันต์ เสริมสุข",
+  accountNumber: "985-516-6388"
+};
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'หน้าแรก', id: 'home' },
@@ -153,10 +157,10 @@ export const COURSES_DATA: Course[] = [
 ];
 
 export const ENROLLMENT_STEPS = [
-  'กด "สมัครเลย" หรือ "สมัครเรียนคอร์สนี้"',
-  'กรอกข้อมูลของท่านพร้อมส่งสลิปการโอนใน Google Form',
-  'ยืนยันการส่งสลิปด้วยการส่งข้อความแจ้งที่ Facebook เพจ Cinematic AI',
-  'เมื่อได้รับแจ้งเตือนทีมงานจะรีบติดต่อกลับหาท่านโดยเร็วที่สุด'
+  'กด "สมัครเลย" เพื่อเข้าสู่แบบฟอร์มสมัครเรียน',
+  'กรอกข้อมูล เลือกคอร์ส และแนบสลิปการโอนเงิน',
+  'กดยืนยันการสมัคร ระบบจะทำการบันทึกข้อมูลของท่าน',
+  'รอรับการติดต่อกลับจากทีมงานเพื่อยืนยันและดึงเข้ากลุ่มเรียน'
 ];
 
 export const ARTICLES_DATA: Article[] = [
