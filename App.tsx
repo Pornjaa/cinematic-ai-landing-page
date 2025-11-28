@@ -3,14 +3,17 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
 import CoursesPage from './components/CoursesPage';
+import ArticlesPage from './components/ArticlesPage';
+import ArticleDetailPage from './components/ArticleDetailPage';
 import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL } from './constants';
 
 const App: React.FC = () => {
   // Simple state-based router
   const [currentPage, setCurrentPage] = useState('home');
+  const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
 
   const handleNavigate = (pageId: string) => {
-    if (pageId === 'portfolio' || pageId === 'articles') {
+    if (pageId === 'portfolio') {
       // If on another page, go home first then scroll
       if (currentPage !== 'home') {
         setCurrentPage('home');
@@ -30,9 +33,16 @@ const App: React.FC = () => {
           if (element) element.scrollIntoView({ behavior: 'smooth' });
         }, 100);
     } else {
+      // Normal page navigation
       setCurrentPage(pageId);
       window.scrollTo(0, 0);
     }
+  };
+
+  const handleReadArticle = (articleId: string) => {
+    setSelectedArticleId(articleId);
+    setCurrentPage('article-detail');
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -45,13 +55,22 @@ const App: React.FC = () => {
           <>
             <Hero />
             <Portfolio />
-            {/* Articles placeholder section if needed */}
-            <section id="articles"></section>
           </>
         )}
 
         {currentPage === 'courses' && (
           <CoursesPage />
+        )}
+
+        {currentPage === 'articles' && (
+          <ArticlesPage onReadArticle={handleReadArticle} />
+        )}
+
+        {currentPage === 'article-detail' && selectedArticleId && (
+          <ArticleDetailPage 
+            articleId={selectedArticleId} 
+            onBack={() => handleNavigate('articles')} 
+          />
         )}
       </main>
       

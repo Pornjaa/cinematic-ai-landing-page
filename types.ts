@@ -27,3 +27,12 @@ export interface Course {
   bonus?: string;
   pricing: CoursePricing[];
 }
+
+export interface Article {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string[]; // Array of paragraphs for simple rendering
+  image: string;
+  date: string;
+}
