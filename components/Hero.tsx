@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FACEBOOK_PAGE_URL, HERO_BACKGROUNDS } from '../constants';
+import SEO from './SEO';
 
 const Hero: React.FC = () => {
   // State for slideshow index
@@ -71,6 +72,11 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+      <SEO 
+        title="Cinematic AI - สถาบันสอนสร้างภาพยนตร์ด้วย AI" 
+        description="ปลดล็อกศักยภาพการสร้างภาพยนตร์ระดับฮอลลีวูดด้วยพลังแห่ง AI เปลี่ยนจินตนาการให้กลายเป็นจริงผ่านสื่อภาพยนตร์ได้ง่ายๆ ด้วยปลายนิ้ว ที่ Cinematic AI ทุกไอเดียเป็นจริงได้"
+      />
+
       {/* 
         Background Layer System:
         1. We map through HERO_BACKGROUNDS to create slideshow divs.

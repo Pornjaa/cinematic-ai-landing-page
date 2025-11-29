@@ -1,5 +1,6 @@
 import React from 'react';
 import { COURSES_DATA, ENROLLMENT_STEPS, FACEBOOK_PAGE_URL } from '../constants';
+import SEO from './SEO';
 
 interface CoursesPageProps {
   onNavigate: (pageId: string) => void;
@@ -8,6 +9,10 @@ interface CoursesPageProps {
 const CoursesPage: React.FC<CoursesPageProps> = ({ onNavigate }) => {
   return (
     <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in">
+      <SEO 
+        title="คอร์สเรียน AI Filmmaking | Cinematic AI"
+        description="เรียนรู้การสร้างภาพยนตร์ด้วย Generative AI ทั้ง Kling, Sora2, Nano Banana สมัครเรียนวันนี้เพื่อยกระดับผลงานของคุณสู่ระดับมืออาชีพ"
+      />
       
       {/* Header Section */}
       <div className="container mx-auto px-6 mb-16 text-center">
