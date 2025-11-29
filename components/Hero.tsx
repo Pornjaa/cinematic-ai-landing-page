@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FACEBOOK_PAGE_URL, HERO_BACKGROUNDS, SITE_URL, SITE_NAME, SITE_LOGO, ADMIN_EMAIL } from '../constants';
+import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL, HERO_BACKGROUNDS, SITE_URL, SITE_NAME, SITE_LOGO, ADMIN_EMAIL } from '../constants';
 import SEO from './SEO';
 
 const Hero: React.FC = () => {
@@ -96,7 +96,9 @@ const Hero: React.FC = () => {
       "contactType": "customer support"
     },
     "sameAs": [
-      FACEBOOK_PAGE_URL
+      FACEBOOK_PAGE_URL,
+      YOUTUBE_URL,
+      TIKTOK_URL
     ]
   };
 
