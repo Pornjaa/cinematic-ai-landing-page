@@ -6,7 +6,7 @@ interface SEOProps {
   description: string;
   image?: string;
   type?: 'website' | 'article' | 'product';
-  schema?: object; // For JSON-LD Structured Data
+  schema?: Record<string, any>; // Changed from object to Record<string, any> for stricter typing
   schemaId?: string; // Unique ID for the schema script tag to prevent overwriting
 }
 
@@ -51,8 +51,10 @@ const SEO: React.FC<SEOProps> = ({
         element.setAttribute('rel', 'canonical');
         document.head.appendChild(element);
       }
-      // Uses the current window location as the canonical source of truth for SPA navigation
-      element.setAttribute('href', window.location.href);
+      // CLEAN URL: Use origin + pathname only, stripping query params (like ?fbclid=...)
+      // This ensures Google counts all traffic variations as the same page.
+      const cleanUrl = window.location.origin + window.location.pathname;
+      element.setAttribute('href', cleanUrl);
     };
 
     // Execute Updates
@@ -63,7 +65,7 @@ const SEO: React.FC<SEOProps> = ({
     setOgMeta('og:description', description);
     setOgMeta('og:image', image);
     setOgMeta('og:type', type);
-    setOgMeta('og:url', window.location.href);
+    setOgMeta('og:url', window.location.origin + window.location.pathname);
 
     // Twitter
     setOgMeta('twitter:card', 'summary_large_image'); // Ensure twitter card is set
@@ -94,6 +96,9 @@ const SEO: React.FC<SEOProps> = ({
         if (s) s.remove();
       };
     }
+    
+    // Explicit return undefined to satisfy strict React useEffect type requirements
+    return undefined;
 
   }, [title, description, image, type, schema, schemaId]);
 
