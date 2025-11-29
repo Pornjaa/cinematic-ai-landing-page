@@ -1,4 +1,5 @@
 
+
 import { NavItem, PortfolioItem, Course, Article, FreeTutorialItem } from './types';
 
 export const FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61563219540499";
@@ -50,22 +51,22 @@ export const FREE_TUTORIALS_DATA: FreeTutorialItem[] = [
   {
     id: 'tut-1',
     youtubeUrl: 'https://youtu.be/c1qpdXcpODc?si=kqush6y-btMZTkIG',
-    title: 'เทคนิคการสร้างภาพยนตร์ด้วย AI (ตอนที่ 1)'
+    title: 'สอนฟรี กลายร่างด้วย nano banana'
   },
   {
     id: 'tut-2',
     youtubeUrl: 'https://youtu.be/mkCM0asJ2aU?si=aJQA5fAe90Gtrzi1',
-    title: 'เทคนิคการสร้างภาพยนตร์ด้วย AI (ตอนที่ 2)'
+    title: 'คอร์สสอน AI ฟรี จิ๋วจี๊ดพอดแคส'
   },
   {
     id: 'tut-3',
     youtubeUrl: 'https://youtu.be/M5WHtuBHsrk?si=nZ0IO49rf2OHJ-Dr',
-    title: 'เทคนิคการสร้างภาพยนตร์ด้วย AI (ตอนที่ 3)'
+    title: 'สอน AI เปลี่ยน เพิ่ม ลบ อย่างมีเวทย์มนต์'
   },
   {
     id: 'tut-4',
     youtubeUrl: 'https://youtu.be/0iYaud7oldg?si=s7TDnk9s9KUiwfIE',
-    title: 'เทคนิคการสร้างภาพยนตร์ด้วย AI (ตอนที่ 4)'
+    title: 'Intro to Cinematic AI คำแนะนำสำหรับผู้เริ่มต้น'
   }
 ];
 
@@ -73,14 +74,14 @@ export const FREE_TUTORIALS_DATA: FreeTutorialItem[] = [
 export const HOME_PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     id: '1',
-    title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 1',
-    description: 'ชมตัวอย่างภาพยนตร์ที่สร้างสรรค์ด้วย AI ทั้งภาพและเสียง',
+    title: 'Master of Horror Ad',
+    description: 'โฆษณาคอร์สเฉพาะทางสำหรับสายสยองขวัญโดยเฉพาะ',
     youtubeUrl: 'https://youtu.be/vbQP5C0Y_wk?si=9oFKLChlnU12ZtxO'
   },
   {
     id: '2',
-    title: 'ตัวอย่างผลงาน: Cinematic AI Showcase 2',
-    description: 'ผลงานการสร้างสรรค์ภาพยนตร์และวิดีโอด้วย AI คุณภาพสูง',
+    title: 'Test Subject Escape',
+    description: 'หญิงสาวถูกล่าโดยสัตว์ประหลาดในห้องทดลองสุดสยอง',
     youtubeUrl: 'https://youtu.be/61wcZj5GolA?si=fOuJJxY855AXZJQS'
   }
 ];
@@ -89,38 +90,38 @@ export const HOME_PORTFOLIO_ITEMS: PortfolioItem[] = [
 export const FULL_SHOWREEL_ITEMS: PortfolioItem[] = [
   {
     id: '1',
-    title: 'Cinematic AI Showcase 1',
-    description: 'ชมตัวอย่างภาพยนตร์ที่สร้างสรรค์ด้วย AI ทั้งภาพและเสียง',
+    title: 'Master of Horror Ad',
+    description: 'โฆษณาคอร์สเฉพาะทางสำหรับสายสยองขวัญโดยเฉพาะ',
     youtubeUrl: 'https://youtu.be/vbQP5C0Y_wk?si=9oFKLChlnU12ZtxO'
   },
   {
     id: '2',
-    title: 'Cinematic AI Showcase 2',
-    description: 'ผลงานการสร้างสรรค์ภาพยนตร์และวิดีโอด้วย AI คุณภาพสูง',
+    title: 'Test Subject Escape',
+    description: 'หญิงสาวถูกล่าโดยสัตว์ประหลาดในห้องทดลองสุดสยอง',
     youtubeUrl: 'https://youtu.be/61wcZj5GolA?si=fOuJJxY855AXZJQS'
   },
   {
     id: '3',
-    title: 'Cinematic AI Showcase 3',
-    description: 'การเล่าเรื่องผ่านภาพเคลื่อนไหวที่สร้างจากปัญญาประดิษฐ์',
+    title: "Don't Bath",
+    description: 'เมื่ออ่างอาบน้ำกลายเป็นฝันร้าย ห้องน้ำกลายเป็นห้องสุดหลอน',
     youtubeUrl: 'https://youtu.be/CHLUElTVWyk'
   },
   {
     id: '4',
-    title: 'Cinematic AI Showcase 4',
-    description: 'เทคนิคการสร้าง Cinematic Video ด้วยเครื่องมือ AI ล่าสุด',
+    title: 'The Clockmaker',
+    description: 'คุณตาผู้เฉยชากับหลานสาวจอมซนกับภารกิจอ้อนตาซื้อหุ่นยนต์',
     youtubeUrl: 'https://youtu.be/upQfwYRcO8s'
   },
   {
     id: '5',
-    title: 'Cinematic AI Showcase 5',
-    description: 'ผลงานใหม่ล่าสุด',
+    title: 'อาหารแมว cinematic',
+    description: 'โฆษณาอาหารแมวยี่ห้อ Cinematic AI',
     youtubeUrl: 'https://youtu.be/Sye_EecXi7I'
   },
   {
     id: '6',
-    title: 'Cinematic AI Showcase 6',
-    description: 'ผลงานใหม่ล่าสุด',
+    title: 'The Dorm',
+    description: 'หอพักสุดหลอนกับแขกไม่ได้รับเชิญสุดคลั่ง',
     youtubeUrl: 'https://youtu.be/yY37ByEm8Go'
   }
 ];
@@ -220,6 +221,19 @@ export const ENROLLMENT_STEPS = [
 ];
 
 export const ARTICLES_DATA: Article[] = [
+  {
+    id: 'free-ai-tools-meta-grok',
+    title: 'แจก!! เครื่องมือสร้างภาพยนตร์ AI ที่สายฟรีไม่ควรพลาด',
+    excerpt: 'ในสงคราม AI ที่แข่งกันดุเดือด ซัดกันแทบทุกนาที มีผู้ครอบครอง AI 2 เจ้าที่ปล่อยเครื่องมือคุณภาพให้เราได้ใช้กันฟรีๆ',
+    date: '12 ธันวาคม 2024',
+    image: 'https://i.postimg.cc/GmP7y3rx/Gemini-Generated-Image-4tkir84tkir84tki.png',
+    content: [
+      'ในสงคราม AI ที่แข่งกันดุเดือด ซัดกันแทบทุกนาที มีผู้ครอบครอง AI 2 เจ้าที่ปล่อยเครื่องมือคุณภาพให้เราได้ใช้กันฟรีๆ',
+      'ตัวแรกกับ Meta AI ของเจ้าพ่อ facebook อย่าง มาร์ค ซัคเคอร์เบิร์ก ที่ดีไม่ดีแทบไม่ต้องคิดเพราะจับมือซื้อโมเดลเจนมาจากเจ้าตลาด AI ภาพนิ่งอย่าง Midjourney เลยทีเดียว นอกจากภาพที่ได้จะออกมาเนียนสมจริงไม่ต่างที่ Midjourney ทำได้แล้ว คำสั่งหรือ prompt ยังสั่งเป็นภาษาไทยง่ายๆ ได้เลยอีกต่างหาก พร้อมด้วยโหมดการสร้างวิดีโอที่ก็ฟรีเช่นกัน และคุณภาพอยู่ในเกณฑ์ที่ดีด้วย และหากยังไม่สาแก่ใจ วิดีโอที่เจนได้จาก Meta AI สามารถเจนต่อเนื่องได้ยาวสูงสุดถึง 15 วินาทีเลยทีเดียว',
+      'ส่วนอีกเจ้าก็เจ้าพ่อไม่แพ้กัน อีลอน มัสก์ แห่งเทสลา กับ AI ของตัวเองอย่าง Grok ที่การสั่งงานเหมือน Meta AI ทุกอย่าง สั่งด้วยภาษาไทยง่ายๆ ได้ ทำภาพนิ่งแบบคำสั่งเดียวไม่จำกัดภาพ เลื่อนดูจนต้องร้องขอชีวิต และภาพเคลื่อนไหวที่คุณภาพอยู่ในเกณฑ์ที่ดีเช่นกันแถมมาพร้อมการเคลมว่า AI video ของข้า ติดเรตได้มากกว่าทุกเจ้าในตลาด ที่เท่าที่เราทดสอบมาก็ดูเหมือนว่าจะเป็นแบบนั้นจริงๆ',
+      'ก็ลองไปใช้กันดูสำหรับสายฟรีและผู้ที่เพิ่งก้าวเข้ามาในโลกของ AI video'
+    ]
+  },
   {
     id: 'nano-banana-pro',
     title: 'กล้วยที่ไม่เคยกล้วย (Nano Banana Pro)',
