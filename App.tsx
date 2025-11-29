@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
@@ -13,20 +13,56 @@ import ShowreelPage from './components/ShowreelPage';
 import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL } from './constants';
 
 const App: React.FC = () => {
-  // Simple state-based router
-  const [currentPage, setCurrentPage] = useState('home');
+  // Helper to determine initial page from URL path
+  const getPageFromPath = () => {
+    const path = window.location.pathname;
+    if (path === '/courses') return 'courses';
+    if (path === '/articles') return 'articles';
+    if (path === '/showreel-page') return 'showreel-page';
+    if (path === '/free-tutorials') return 'free-tutorials';
+    if (path === '/enroll') return 'enroll';
+    return 'home';
+  };
+
+  // State initialization using the helper
+  const [currentPage, setCurrentPage] = useState(getPageFromPath);
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
 
+  // Handle Browser Back/Forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPage(getPageFromPath());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const handleNavigate = (pageId: string) => {
+    let path = '/';
+    
+    // Map page IDs to URL paths
+    switch (pageId) {
+      case 'home': path = '/'; break;
+      case 'courses': path = '/courses'; break;
+      case 'articles': path = '/articles'; break;
+      case 'showreel-page': path = '/showreel-page'; break;
+      case 'free-tutorials': path = '/free-tutorials'; break;
+      case 'enroll': path = '/enroll'; break;
+      case 'article-detail': path = '/articles'; break; // Keep parent path for detail view in this simple router
+      default: path = '/';
+    }
+
     if (pageId === 'apply') {
-      // Go to courses page and scroll to enroll section
+      // Special logic for "Apply" button to scroll to enroll section
+       window.history.pushState({}, '', '/courses');
        setCurrentPage('courses');
        setTimeout(() => {
           const element = document.getElementById('enroll-section');
           if (element) element.scrollIntoView({ behavior: 'smooth' });
         }, 100);
     } else {
-      // Normal page navigation
+      // Normal navigation
+      window.history.pushState({}, '', path);
       setCurrentPage(pageId);
       window.scrollTo(0, 0);
     }
@@ -34,6 +70,7 @@ const App: React.FC = () => {
 
   const handleReadArticle = (articleId: string) => {
     setSelectedArticleId(articleId);
+    // Optional: Could add query param like ?article=id if desired, but keeping simple for now
     setCurrentPage('article-detail');
     window.scrollTo(0, 0);
   };
