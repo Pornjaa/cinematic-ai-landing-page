@@ -1,5 +1,6 @@
 import React from 'react';
 import { FREE_TUTORIALS_DATA } from '../constants';
+import LiteYouTubeEmbed from './LiteYouTubeEmbed';
 
 const FreeTutorialsPage: React.FC = () => {
   // Helper to get YouTube ID
@@ -28,14 +29,7 @@ const FreeTutorialsPage: React.FC = () => {
               <div key={item.id} className="bg-cinematic-800 rounded-2xl overflow-hidden shadow-lg border border-gray-800 hover:border-cinematic-accent/50 transition-all duration-300">
                 <div className="relative w-full aspect-video bg-black">
                   {videoId ? (
-                    <iframe
-                      className="absolute inset-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${videoId}`}
-                      title={item.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                    ></iframe>
+                    <LiteYouTubeEmbed id={videoId} title={item.title} />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gray-900 text-gray-500">
                       Video not found

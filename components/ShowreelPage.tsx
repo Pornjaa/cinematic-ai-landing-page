@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { FULL_SHOWREEL_ITEMS } from '../constants';
+import LiteYouTubeEmbed from './LiteYouTubeEmbed';
 
 const ShowreelPage: React.FC = () => {
   // Helper to get YouTube ID
@@ -29,14 +29,7 @@ const ShowreelPage: React.FC = () => {
               <div key={item.id} className="group bg-cinematic-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                 <div className="relative w-full aspect-video">
                   {videoId ? (
-                    <iframe
-                      className="absolute inset-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${videoId}`}
-                      title={item.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                    ></iframe>
+                    <LiteYouTubeEmbed id={videoId} title={item.title} />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gray-900">
                       <span className="text-gray-500">Video not found</span>

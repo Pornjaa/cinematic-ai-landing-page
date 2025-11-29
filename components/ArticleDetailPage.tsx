@@ -1,5 +1,6 @@
 import React from 'react';
 import { ARTICLES_DATA } from '../constants';
+import LiteYouTubeEmbed from './LiteYouTubeEmbed';
 
 interface ArticleDetailPageProps {
   articleId: string;
@@ -42,13 +43,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack
         <div className="mb-10 rounded-2xl overflow-hidden shadow-2xl bg-black">
           {article.youtubeId ? (
             <div className="relative aspect-video">
-              <iframe 
-                src={`https://www.youtube.com/embed/${article.youtubeId}`}
-                title={article.title}
-                className="absolute inset-0 w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+              <LiteYouTubeEmbed id={article.youtubeId} title={article.title} />
             </div>
           ) : (
             <img 
