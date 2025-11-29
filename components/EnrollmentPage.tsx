@@ -1,6 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
 import { BANK_DETAILS, ADMIN_EMAIL, FACEBOOK_PAGE_URL } from '../constants';
-import SEO from './SEO';
 
 const EnrollmentPage: React.FC = () => {
   const [course, setCourse] = useState('kling');
@@ -103,7 +103,6 @@ Email: ${formData.email}
   if (isSuccess) {
     return (
       <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in flex items-center justify-center">
-        <SEO title="แจ้งโอนเงินสำเร็จ | Cinematic AI" />
         <div className="container mx-auto px-6 max-w-2xl text-center">
           <div className="bg-cinematic-800 p-10 rounded-3xl border border-green-500/50 shadow-2xl">
             <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -133,7 +132,6 @@ Email: ${formData.email}
 
   return (
     <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in">
-      <SEO title="สมัครเรียน | Cinematic AI" description="กรอกแบบฟอร์มสมัครเรียนคอร์ส AI Filmmaking" />
       <div className="container mx-auto px-6 max-w-2xl">
         <div className="text-center mb-10">
           <h1 className="text-3xl md:text-4xl font-display font-bold mb-4 text-white">

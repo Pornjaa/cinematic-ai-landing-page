@@ -7,14 +7,7 @@ interface LiteYouTubeEmbedProps {
 }
 
 const LiteYouTubeEmbed: React.FC<LiteYouTubeEmbedProps> = ({ id, title, wrapperClass = "aspect-video" }) => {
-  const [isPreconnected, setIsPreconnected] = useState(false);
   const [isIframeLoaded, setIsIframeLoaded] = useState(false);
-
-  // Warm up connections when user hovers
-  const warmConnections = () => {
-    if (isPreconnected) return;
-    setIsPreconnected(true);
-  };
 
   const loadIframe = () => {
     setIsIframeLoaded(true);
@@ -23,7 +16,6 @@ const LiteYouTubeEmbed: React.FC<LiteYouTubeEmbedProps> = ({ id, title, wrapperC
   return (
     <div 
       className={`relative w-full bg-black cursor-pointer overflow-hidden group ${wrapperClass}`}
-      onPointerOver={warmConnections}
       onClick={loadIframe}
     >
       {isIframeLoaded ? (
@@ -55,14 +47,6 @@ const LiteYouTubeEmbed: React.FC<LiteYouTubeEmbedProps> = ({ id, title, wrapperC
           
           {/* Gradient Overlay for aesthetic */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
-        </>
-      )}
-      
-      {/* Preconnect links for faster loading once clicked */}
-      {isPreconnected && (
-        <>
-          <link rel="preconnect" href="https://www.youtube.com" />
-          <link rel="preconnect" href="https://www.google.com" />
         </>
       )}
     </div>

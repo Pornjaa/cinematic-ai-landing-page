@@ -5,6 +5,9 @@ export const FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=615632
 export const YOUTUBE_URL = "https://www.youtube.com/@cinematicai112";
 export const TIKTOK_URL = "https://www.tiktok.com/@cinematicaiofficial";
 export const ADMIN_EMAIL = "workanddontdie@gmail.com";
+export const SITE_URL = "https://cinematicaicourse.com";
+export const SITE_NAME = "Cinematic AI";
+export const SITE_LOGO = "https://i.postimg.cc/TYspy9Fb/1004.png";
 
 export const BANK_DETAILS = {
   bankName: "ธนาคารกสิกรไทย (KBANK)",
@@ -18,6 +21,29 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'บทความ', id: 'articles' },
   { label: 'ผลงานของเรา', id: 'showreel-page' }, // Link to separate page
   { label: 'Free Tutorial', id: 'free-tutorials', isButton: true },
+];
+
+export const FAQ_ITEMS = [
+  {
+    question: "Cinematic AI สอนเกี่ยวกับอะไร?",
+    answer: "Cinematic AI เป็นสถาบันสอนสร้างภาพยนตร์ด้วยปัญญาประดิษฐ์ (AI) ครบวงจร สอนตั้งแต่การใช้เครื่องมือ Generative AI ต่างๆ เช่น Kling, Nano Banana, Sora2 เพื่อสร้างภาพนิ่งและภาพเคลื่อนไหว ไปจนถึงเทคนิคการเล่าเรื่องและการตัดต่อระดับมืออาชีพ"
+  },
+  {
+    question: "ไม่มีพื้นฐานการตัดต่อมาก่อน เรียนได้ไหม?",
+    answer: "เรียนได้แน่นอน คอร์สของเราออกแบบมาสำหรับผู้เริ่มต้น (Beginner) ไปจนถึงระดับสูง โดยสอนตั้งแต่พื้นฐานการใช้งานเครื่องมือ การเขียน Prompt ภาษาไทย ไปจนถึงกระบวนการผลิตงานจริง"
+  },
+  {
+    question: "คอร์ส Generative Kling ราคาเท่าไหร่?",
+    answer: "คอร์ส Generative Kling รูปแบบ Online Group ราคาโปรโมชั่นปัจจุบันอยู่ที่ 990 บาท (จากปกติ 1,590 บาท) และยังมีรูปแบบเรียนส่วนตัว (Private) ราคา 3,000 บาท"
+  },
+  {
+    question: "เรียนผ่านช่องทางไหน?",
+    answer: "สำหรับรูปแบบ Online Group จะเรียนผ่านกลุ่มปิด Facebook ที่สามารถดูย้อนหลังได้ตลอดชีพ ส่วนรูปแบบ Private 1:1 จะเรียนสดผ่าน Google Meet"
+  },
+  {
+    question: "ต้องใช้คอมพิวเตอร์สเปคสูงไหม?",
+    answer: "ไม่จำเป็นต้องใช้คอมพิวเตอร์สเปคสูงมาก เพราะการประมวลผล AI ส่วนใหญ่ทำผ่าน Cloud Server ของผู้ให้บริการ (เช่น Kling, Midjourney) เพียงแค่มีอินเทอร์เน็ตที่เสถียรก็สามารถเรียนและทำงานได้"
+  }
 ];
 
 export const FREE_TUTORIALS_DATA: FreeTutorialItem[] = [

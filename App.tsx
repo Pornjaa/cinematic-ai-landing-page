@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
@@ -10,21 +10,25 @@ import ArticleDetailPage from './components/ArticleDetailPage';
 import FreeTutorialsPage from './components/FreeTutorialsPage';
 import EnrollmentPage from './components/EnrollmentPage';
 import ShowreelPage from './components/ShowreelPage';
+import FAQSection from './components/FAQSection';
 import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL } from './constants';
 
 const App: React.FC = () => {
   // Helper to determine initial page from URL path
   const getPageFromPath = () => {
-    const path = window.location.pathname;
-    if (path === '/courses') return 'courses';
-    if (path === '/articles') return 'articles';
-    if (path === '/showreel-page') return 'showreel-page';
-    if (path === '/free-tutorials') return 'free-tutorials';
-    if (path === '/enroll') return 'enroll';
-    return 'home';
+    try {
+      const path = window.location.pathname.replace(/\/$/, '');
+      if (path === '/courses') return 'courses';
+      if (path === '/articles') return 'articles';
+      if (path === '/showreel-page') return 'showreel-page';
+      if (path === '/free-tutorials') return 'free-tutorials';
+      if (path === '/enroll') return 'enroll';
+      return 'home';
+    } catch (e) {
+      return 'home';
+    }
   };
 
-  // State initialization using the helper
   const [currentPage, setCurrentPage] = useState(getPageFromPath);
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
 
@@ -37,43 +41,64 @@ const App: React.FC = () => {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const handleNavigate = (pageId: string) => {
-    let path = '/';
-    
-    // Map page IDs to URL paths
-    switch (pageId) {
-      case 'home': path = '/'; break;
-      case 'courses': path = '/courses'; break;
-      case 'articles': path = '/articles'; break;
-      case 'showreel-page': path = '/showreel-page'; break;
-      case 'free-tutorials': path = '/free-tutorials'; break;
-      case 'enroll': path = '/enroll'; break;
-      case 'article-detail': path = '/articles'; break; // Keep parent path for detail view in this simple router
-      default: path = '/';
-    }
+  // Optimized navigation handler
+  const handleNavigate = useCallback((pageId: string) => {
+    // 1. Determine target state and path
+    let targetPage = pageId;
+    let targetPath = '/';
 
     if (pageId === 'apply') {
-      // Special logic for "Apply" button to scroll to enroll section
-       window.history.pushState({}, '', '/courses');
-       setCurrentPage('courses');
+       targetPage = 'courses';
+       targetPath = '/courses';
+       
+       // Scroll logic for apply button
        setTimeout(() => {
           const element = document.getElementById('enroll-section');
-          if (element) element.scrollIntoView({ behavior: 'smooth' });
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
         }, 100);
     } else {
-      // Normal navigation
-      window.history.pushState({}, '', path);
-      setCurrentPage(pageId);
+       // Logic for other pages
+       switch (pageId) {
+        case 'home': targetPath = '/'; break;
+        case 'courses': targetPath = '/courses'; break;
+        case 'articles': targetPath = '/articles'; break;
+        case 'showreel-page': targetPath = '/showreel-page'; break;
+        case 'free-tutorials': targetPath = '/free-tutorials'; break;
+        case 'enroll': targetPath = '/enroll'; break;
+        case 'article-detail': targetPath = '/articles'; break; 
+        default: targetPath = '/';
+      }
       window.scrollTo(0, 0);
     }
-  };
 
-  const handleReadArticle = (articleId: string) => {
+    // 2. Update React State (Priority - This makes the app "work")
+    setCurrentPage(targetPage);
+
+    // 3. Update URL (Progressive Enhancement - Fail silently if restricted)
+    try {
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({}, '', targetPath);
+      }
+    } catch (e) {
+      // Intentionally silent: Suppress errors if history API is restricted
+      // The app will still function correctly via React state
+    }
+  }, []);
+
+  const handleReadArticle = useCallback((articleId: string) => {
     setSelectedArticleId(articleId);
-    // Optional: Could add query param like ?article=id if desired, but keeping simple for now
     setCurrentPage('article-detail');
     window.scrollTo(0, 0);
-  };
+    
+    // Update URL silently
+    try {
+      window.history.pushState({}, '', '/articles');
+    } catch (e) {
+      // Intentionally silent
+    }
+  }, []);
 
   return (
     <div className="min-h-screen font-sans bg-cinematic-900 text-white selection:bg-cinematic-accent selection:text-white flex flex-col">
@@ -85,6 +110,7 @@ const App: React.FC = () => {
           <>
             <Hero />
             <Portfolio />
+            <FAQSection />
             <OnsiteAtmosphere />
           </>
         )}
@@ -125,7 +151,6 @@ const App: React.FC = () => {
             สถาบันสอนสร้างภาพยนตร์ด้วยปัญญาประดิษฐ์ครบวงจร เปลี่ยนจินตนาการของคุณให้เป็นภาพเคลื่อนไหวที่น่าตื่นตาตื่นใจ
           </p>
 
-          {/* Contact / Social Links */}
           <div className="mb-10">
             <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">ติดต่อเรา</h4>
             <div className="flex justify-center flex-wrap gap-8">
