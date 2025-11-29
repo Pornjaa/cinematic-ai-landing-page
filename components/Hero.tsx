@@ -106,6 +106,7 @@ const Hero: React.FC = () => {
         title="สถาบันสอนสร้างภาพยนตร์ด้วย AI"
         description="ปลดล็อกศักยภาพการสร้างภาพยนตร์ระดับฮอลลีวูดด้วยพลังแห่ง AI เรียนรู้ Kling, Nano Banana, Veo และเทคนิคการเล่าเรื่อง"
         schema={organizationSchema}
+        schemaId="seo-organization"
       />
 
       {/* 

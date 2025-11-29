@@ -31,6 +31,7 @@ const FAQSection: React.FC = () => {
          title="Cinematic AI - สถาบันสอนสร้างภาพยนตร์ด้วย AI" // Fallback title
          description="คำถามที่พบบ่อยเกี่ยวกับ Cinematic AI" 
          schema={faqSchema}
+         schemaId="seo-faq"
       />
       
       <div className="container mx-auto px-6 max-w-4xl">

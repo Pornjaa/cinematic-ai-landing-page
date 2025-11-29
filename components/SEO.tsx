@@ -7,6 +7,7 @@ interface SEOProps {
   image?: string;
   type?: 'website' | 'article' | 'product';
   schema?: object; // For JSON-LD Structured Data
+  schemaId?: string; // Unique ID for the schema script tag to prevent overwriting
 }
 
 const SEO: React.FC<SEOProps> = ({ 
@@ -14,7 +15,8 @@ const SEO: React.FC<SEOProps> = ({
   description, 
   image = "https://i.postimg.cc/TYspy9Fb/1004.png", 
   type = 'website',
-  schema 
+  schema,
+  schemaId
 }) => {
   useEffect(() => {
     // 1. Update Title
@@ -72,22 +74,28 @@ const SEO: React.FC<SEOProps> = ({
     setCanonical();
 
     // 4. Inject JSON-LD Schema (The most important part for AEO)
+    // We utilize a cleanup function to remove the script when the component unmounts
+    // or when the page changes, preventing stale data.
     if (schema) {
-      let script = document.querySelector('#seo-schema');
+      const scriptId = schemaId || 'seo-schema-main';
+      let script = document.getElementById(scriptId);
+      
       if (!script) {
         script = document.createElement('script');
-        script.setAttribute('id', 'seo-schema');
+        script.id = scriptId;
         script.setAttribute('type', 'application/ld+json');
         document.head.appendChild(script);
       }
       script.textContent = JSON.stringify(schema);
-    } else {
-       // Cleanup schema if not present
-       const script = document.querySelector('#seo-schema');
-       if (script) script.remove();
+
+      // Cleanup: Remove this specific schema when the component unmounts
+      return () => {
+        const s = document.getElementById(scriptId);
+        if (s) s.remove();
+      };
     }
 
-  }, [title, description, image, type, schema]);
+  }, [title, description, image, type, schema, schemaId]);
 
   return null;
 };

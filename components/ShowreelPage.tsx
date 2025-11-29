@@ -2,6 +2,7 @@
 import React from 'react';
 import { FULL_SHOWREEL_ITEMS } from '../constants';
 import LiteYouTubeEmbed from './LiteYouTubeEmbed';
+import SEO from './SEO';
 
 const ShowreelPage: React.FC = () => {
   // Helper to get YouTube ID
@@ -13,6 +14,10 @@ const ShowreelPage: React.FC = () => {
 
   return (
     <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in">
+      <SEO 
+        title="ผลงานและตัวอย่างภาพยนตร์ AI" 
+        description="ชมตัวอย่างผลงานภาพยนตร์สั้น โฆษณา และมิวสิควิดีโอที่สร้างสรรค์ด้วย AI ทั้งหมดจากนักเรียนและทีมงาน Cinematic AI" 
+      />
 
       <div className="container mx-auto px-6 mb-16 text-center">
         <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-white">

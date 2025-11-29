@@ -2,6 +2,7 @@
 import React from 'react';
 import { FREE_TUTORIALS_DATA } from '../constants';
 import LiteYouTubeEmbed from './LiteYouTubeEmbed';
+import SEO from './SEO';
 
 const FreeTutorialsPage: React.FC = () => {
   // Helper to get YouTube ID
@@ -13,6 +14,10 @@ const FreeTutorialsPage: React.FC = () => {
 
   return (
     <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in">
+      <SEO 
+        title="เรียน AI Filmmaking ฟรี" 
+        description="คอร์สเรียนฟรี (Free Tutorial) สอนพื้นฐานการสร้างภาพยนตร์ด้วย AI เทคนิคการใช้เครื่องมือต่างๆ สำหรับผู้เริ่มต้น" 
+      />
 
       <div className="container mx-auto px-6 mb-16 text-center">
         <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-white">
