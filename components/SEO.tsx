@@ -41,7 +41,19 @@ const SEO: React.FC<SEOProps> = ({
       element.setAttribute('content', content);
     };
 
-    // Standard Meta
+    // 3. Update Canonical URL (Crucial for preventing duplicate content issues)
+    const setCanonical = () => {
+      let element = document.querySelector('link[rel="canonical"]');
+      if (!element) {
+        element = document.createElement('link');
+        element.setAttribute('rel', 'canonical');
+        document.head.appendChild(element);
+      }
+      // Uses the current window location as the canonical source of truth for SPA navigation
+      element.setAttribute('href', window.location.href);
+    };
+
+    // Execute Updates
     setMeta('description', description);
 
     // Open Graph / Facebook
@@ -52,11 +64,14 @@ const SEO: React.FC<SEOProps> = ({
     setOgMeta('og:url', window.location.href);
 
     // Twitter
+    setOgMeta('twitter:card', 'summary_large_image'); // Ensure twitter card is set
     setOgMeta('twitter:title', title);
     setOgMeta('twitter:description', description);
     setOgMeta('twitter:image', image);
 
-    // 3. Inject JSON-LD Schema (The most important part for AEO)
+    setCanonical();
+
+    // 4. Inject JSON-LD Schema (The most important part for AEO)
     if (schema) {
       let script = document.querySelector('#seo-schema');
       if (!script) {
