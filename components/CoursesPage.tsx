@@ -1,14 +1,52 @@
 
 import React from 'react';
 import { COURSES_DATA, ENROLLMENT_STEPS, FACEBOOK_PAGE_URL } from '../constants';
+import SEO from './SEO';
 
 interface CoursesPageProps {
   onNavigate: (pageId: string) => void;
 }
 
 const CoursesPage: React.FC<CoursesPageProps> = ({ onNavigate }) => {
+  
+  // Construct Schema.org Course Data
+  const coursesSchema = COURSES_DATA.map(course => ({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": course.title,
+    "description": course.description,
+    "provider": {
+      "@type": "Organization",
+      "name": "Cinematic AI",
+      "sameAs": "https://cinematicaicourse.com"
+    },
+    "offers": course.pricing.map(p => ({
+      "@type": "Offer",
+      "category": p.title,
+      "price": p.price.replace(/[^0-9]/g, ''),
+      "priceCurrency": "THB",
+      "description": p.description
+    }))
+  }));
+
+  // Wrap in itemList for multiple courses
+  const catalogSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": coursesSchema.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": item
+    }))
+  };
+
   return (
     <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in">
+      <SEO 
+        title="คอร์สเรียน AI Filmmaking" 
+        description="คอร์สสอนสร้างภาพยนตร์ด้วย AI ทั้ง Generative Kling, Nano Banana, Sora2 และเทคนิคสยองขวัญ Master of Horror"
+        schema={catalogSchema}
+      />
       
       {/* Header Section */}
       <div className="container mx-auto px-6 mb-16 text-center">

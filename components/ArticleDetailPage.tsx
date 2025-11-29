@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { ARTICLES_DATA } from '../constants';
+import { ARTICLES_DATA, SITE_NAME, SITE_URL, SITE_LOGO } from '../constants';
 import LiteYouTubeEmbed from './LiteYouTubeEmbed';
+import SEO from './SEO';
 
 interface ArticleDetailPageProps {
   articleId: string;
@@ -14,14 +15,48 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack
   if (!article) {
     return (
       <div className="pt-32 pb-20 text-center text-white">
+        <SEO title="ไม่พบบทความ" description="ขออภัย ไม่พบบทความที่คุณต้องการ" />
         <h2 className="text-2xl font-bold">ไม่พบบทความ</h2>
         <button onClick={onBack} className="mt-4 text-cinematic-accent underline">กลับหน้ารวมบทความ</button>
       </div>
     );
   }
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": article.title,
+    "image": article.image,
+    "datePublished": "2024-01-01", // Should ideally be ISO format from data
+    "dateModified": new Date().toISOString().split('T')[0],
+    "author": {
+      "@type": "Organization",
+      "name": SITE_NAME
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": SITE_NAME,
+      "logo": {
+        "@type": "ImageObject",
+        "url": SITE_LOGO
+      }
+    },
+    "description": article.excerpt,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/articles`
+    }
+  };
+
   return (
     <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in">
+      <SEO 
+        title={article.title}
+        description={article.excerpt}
+        image={article.image}
+        type="article"
+        schema={articleSchema}
+      />
 
       <div className="container mx-auto px-6 max-w-4xl">
         <button 

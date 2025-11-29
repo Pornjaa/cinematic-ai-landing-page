@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ARTICLES_DATA } from '../constants';
+import SEO from './SEO';
 
 interface ArticlesPageProps {
   onReadArticle: (articleId: string) => void;
@@ -9,6 +10,10 @@ interface ArticlesPageProps {
 const ArticlesPage: React.FC<ArticlesPageProps> = ({ onReadArticle }) => {
   return (
     <div className="pt-24 pb-20 min-h-screen bg-cinematic-900 text-white animate-fade-in">
+      <SEO 
+        title="บทความและเทคนิค AI Filmmaking" 
+        description="รวมบทความสอนใช้งาน Kling, Nano Banana, Sora2 และอัปเดตข่าวสารวงการ AI Art และภาพยนตร์"
+      />
 
       <div className="container mx-auto px-6 mb-16 text-center">
         <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-white">

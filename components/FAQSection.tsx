@@ -1,7 +1,7 @@
+
 import React, { useState } from 'react';
 import { FAQ_ITEMS } from '../constants';
-// SEO component removed from here to prevent conflicts with Home page SEO
-// import SEO from './SEO'; 
+import SEO from './SEO';
 
 const FAQSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -10,9 +10,28 @@ const FAQSection: React.FC = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  // Create FAQPage Schema for AEO
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": FAQ_ITEMS.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  };
+
   return (
     <section className="py-20 bg-cinematic-900 border-t border-gray-800">
-      {/* REMOVED: Dynamic SEO Schema injection */}
+      {/* Inject FAQ Schema specifically for this section if it's on the home page */}
+      <SEO 
+         title="Cinematic AI - สถาบันสอนสร้างภาพยนตร์ด้วย AI" // Fallback title
+         description="คำถามที่พบบ่อยเกี่ยวกับ Cinematic AI" 
+         schema={faqSchema}
+      />
       
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="mb-12 text-center">

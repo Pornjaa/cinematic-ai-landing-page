@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FACEBOOK_PAGE_URL, HERO_BACKGROUNDS } from '../constants';
+import { FACEBOOK_PAGE_URL, HERO_BACKGROUNDS, SITE_URL, SITE_NAME, SITE_LOGO, ADMIN_EMAIL } from '../constants';
+import SEO from './SEO';
 
 const Hero: React.FC = () => {
   // State for slideshow index
@@ -82,8 +83,31 @@ const Hero: React.FC = () => {
     }
   };
 
+  // Schema for Organization (AEO Critical)
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": SITE_NAME,
+    "url": SITE_URL,
+    "logo": SITE_LOGO,
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": ADMIN_EMAIL,
+      "contactType": "customer support"
+    },
+    "sameAs": [
+      FACEBOOK_PAGE_URL
+    ]
+  };
+
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+      <SEO 
+        title="สถาบันสอนสร้างภาพยนตร์ด้วย AI"
+        description="ปลดล็อกศักยภาพการสร้างภาพยนตร์ระดับฮอลลีวูดด้วยพลังแห่ง AI เรียนรู้ Kling, Nano Banana, Veo และเทคนิคการเล่าเรื่อง"
+        schema={organizationSchema}
+      />
+
       {/* 
         Background Layer System:
         1. We map through HERO_BACKGROUNDS to create slideshow divs.
