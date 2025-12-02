@@ -4,7 +4,7 @@ import { NavItem, PortfolioItem, Course, Article, FreeTutorialItem } from './typ
 
 export const FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61563219540499";
 export const YOUTUBE_URL = "https://www.youtube.com/@cinematicai112";
-export const TIKTOK_URL = "https://www.tiktok.com/@cinematicaiofficial";
+export const TIKTOK_URL = "https://www.tiktok.com/@cinematicaicourse.com"; // Note: Checked original, it was correct, keeping consistency
 export const ADMIN_EMAIL = "workanddontdie@gmail.com";
 export const SITE_URL = "https://cinematicaicourse.com";
 export const SITE_NAME = "Cinematic AI";
@@ -67,6 +67,11 @@ export const FREE_TUTORIALS_DATA: FreeTutorialItem[] = [
     id: 'tut-4',
     youtubeUrl: 'https://youtu.be/0iYaud7oldg?si=s7TDnk9s9KUiwfIE',
     title: 'Intro to Cinematic AI คำแนะนำสำหรับผู้เริ่มต้น'
+  },
+  {
+    id: 'tut-5',
+    youtubeUrl: 'https://youtu.be/S6neXP4m2TE',
+    title: 'สอนฟรี!! ปักตะกร้าง่ายๆ ด้วย Sora2'
   }
 ];
 
@@ -222,6 +227,23 @@ export const ENROLLMENT_STEPS = [
 
 export const ARTICLES_DATA: Article[] = [
   {
+    id: 'kling-ai-o1-update',
+    title: 'Kling AI O1 อัพเกรดเปลี่ยนโลก',
+    excerpt: 'เปิดให้ทดลองใช้กันแล้วสำหรับ Kling o1 โมเดลล่าสุดที่ไม่ใช่แค่โมเดลใหม่ แต่คือการคิดใหม่ทำใหม่ จนได้หน้าตาการทำงานใหม่ที่สะดวก ง่าย และโคตรจะมีประสิทธิภาพ',
+    date: '24 มกราคม 2025',
+    image: 'https://i.postimg.cc/zBfRHqfv/kling.png',
+    content: [
+      'เปิดให้ทดลองใช้กันแล้วสำหรับ Kling o1 โมเดลล่าสุดที่ไม่ใช่แค่โมเดลใหม่ แต่คือการคิดใหม่ทำใหม่ จนได้หน้าตาการทำงานใหม่ที่สะดวก ง่าย และโคตรจะมีประสิทธิภาพ',
+      'โดยภาพรวม o1 เหมือน kling ที่กลืน nano banana เข้าไปแล้วได้ workflow ใหม่ที่มี nano banana เป็นฐาน ดังนั้นหมดห่วงเรื่องความต่อเนื่อง ความคงที่ของหน้าตาตัวละคร ฉาก และองค์ประกอบต่างๆ',
+      'o1 เข้าไปอยู่ทั้งในโหมดการสร้างภาพนิ่งและวิดีโอ',
+      '- ในโหมดภาพนิ่งสามารถเจนภาพที่ความละเอียดสูงสุดได้ที่ 2k',
+      '- เจนภาพนิ่งที่มีความคงเดิม คงที่ ของตัวละครได้ง่ายๆ แค่หย่อนภาพแล้วสั่งเปลี่ยนมุมมองหรือองค์ประกอบ ยิ่งไปกว่านั้นเพียงภาพเดียวก็สามารถสร้างคาแรกเตอร์หรืออวตารสำเร็จไว้กดแบบคลิกเดียวพร้อมใช้ได้ในโหมดวิดีโอ',
+      '- สามารถใช้ทั้งภาพนิ่งและวิดีโอเป็นอุนพุตอ้างอิงในการปรับเปลี่ยนหรือเพิ่มเติมองค์ประกอบต่างๆ เข้าไปได้',
+      '- หรือใส่ภาพนิ่งหลายภาพ วิดีโอรวมกับภาพนิ่ง แล้วสั่งรวมหรือเปลี่ยน แทนที่ บางอย่างได้อย่างง่ายดาย',
+      'และอีกหลากหลายฟังก์ชันที่สามารถลองเข้าไปเล่นกันได้แล้ววันนี้'
+    ]
+  },
+  {
     id: 'json-prompt-guide',
     title: 'JSON Prompt คืออะไร? เคล็ดลับสั่งงาน AI Video ให้แม่นยำดั่งจับวาง',
     excerpt: 'เจาะลึกการใช้ภาษา JSON เพื่อสั่งงาน AI สร้างวิดีโอ เหมาะสำหรับสาย Technical หรือผู้ที่ต้องการความแม่นยำสูงในการควบคุมมุมกล้องและองค์ประกอบ พร้อมสูตรลัดให้ AI ช่วยเขียน',
@@ -234,7 +256,7 @@ export const ARTICLES_DATA: Article[] = [
       'ตัวอย่างการใช้งาน: แทนที่จะพิมพ์ว่า "A cinematic shot of a cyberpunk city with neon lights, camera pans right slowly", เราอาจจะเขียนในรูปแบบ Structured Prompt หรือใส่ในช่อง Advanced setting ของบางเครื่องมือว่า:',
       '{ "scene": "cyberpunk city", "lighting": "neon", "camera": { "movement": "pan_right", "speed": "slow" } }',
       'เครื่องมือที่รองรับ: ปัจจุบันการใช้ JSON แบบเต็มรูปแบบมักพบใน ComfyUI (Workflow ทั้งหมดคือไฟล์ JSON), การยิง API ของ Luma และ Kling สำหรับนักพัฒนา, หรือโมเดลใหม่อย่าง Google Veo3 ที่รองรับการรับคำสั่งด้วย JSON เพื่อกำหนดรายละเอียดที่ซับซ้อนได้แม่นยำกว่าการพิมพ์บอกปกติ',
-      'สูตรลัด: ถึงแม้ JSON prompt จะเป็นภาษาที่ดูงงและเขียนยากสำหรับคนทั่วไป แต่เราสามารถใช้สูตรลัดการเขียน prompt ได้ คือการสั่ง ChatGPT หรือ Gemini ด้วยคำสั่งง่ายๆ ว่า "ช่วยเขียน JSON prompt สำหรับสร้างวิดีโอด้วย veo3 ..." แล้วตามด้วยคำสั่งภาษาไทยเกี่ยวกับวิดีโอที่เราต้องการได้เลย เพียงเท่านี้คุณก็จะได้ชุดคำสั่งสุดเทพไปใช้งานโดยไม่ต้องเขียนโค้ดเองสักตัว',
+      'สูตรลัด: ถึงแม้ JSON prompt จะเป็นภาษาที่ดูงงและเขียนยากสำหรับคนทั่วไป แต่เราสามารถใช้สูตรลัดการเขียน prompt ได้ คือการสั่ง ChatGPT หรือ Gemini ด้วยคำสั่งภาษาไทยเกี่ยวกับวิดีโอที่เราต้องการได้เลย เพียงเท่านี้คุณก็จะได้ชุดคำสั่งสุดเทพไปใช้งานโดยไม่ต้องเขียนโค้ดเองสักตัว',
       'สรุป: แม้จะดูมีความเป็นโปรแกรมมิ่งสูง แต่การเข้าใจโครงสร้าง JSON จะช่วยให้คุณ "คิดแบบ AI" และสั่งงานได้ละเอียดแม่นยำกว่าการเขียนเรียงความยาวๆ อย่างแน่นอน'
     ]
   },
@@ -343,3 +365,4 @@ export const ARTICLES_DATA: Article[] = [
     ]
   }
 ];
+
