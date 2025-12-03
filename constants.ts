@@ -194,6 +194,35 @@ export const COURSES_DATA: Course[] = [
     ]
   },
   {
+    id: 'kling-o1-master-class',
+    title: 'Kling o1 Master Class',
+    description: 'อัพเกรดครั้งใหญ่ของนักสร้างสรรค์ กับ kling o1 และคอร์สที่จะทำให้การสร้างสรรค์ของคุณไร้ขีดจำกัดด้วย o1 multi model สุดล้ำ',
+    image: 'https://i.postimg.cc/zvMJyfZV/Gemini-Generated-Image-txtob8txtob8txto.jpg',
+    syllabus: [
+      'o1 image generation: การสร้างภาพนิ่งด้วยภาพอ้างอิง',
+      'การใช้งาน prompt สำหรับโมเดล o1',
+      'การสร้างภาพนิ่งด้วย element',
+      'การปรับจูนตั้งค่าเครื่องมือต่างๆ ทั้งความละเอียดภาพ สัดส่วนภาพ จำนวนภาพ',
+      'o1 video generation: การใช้งานโหมด element',
+      'การรวมภาพนิ่งหลายภาพเข้าเป็นคลิปเดียวแบบคงที่รายละเอียดครบ',
+      'การเรียกใช้ element เพื่อสร้างคลิป',
+      'element สำเร็จรูปแบบต่างๆ และวิธีใช้งานสำหรับงานวิดีโอ',
+      'custom element การสร้าง element ไว้ใช้งานเอง',
+      'การใช้งานโหมด transformation เปลี่ยนบุคคล สิ่งของ สถานที่ หรือแม้แต่อากาศ ได้ดั่งใจ',
+      'การใช้ภาพนิ่งเพื่อเปลี่ยนรายละเอียดในคลิป',
+      'การใช้ element เพื่อเปลี่ยนรายละเอียดในคลิป',
+      'การใช้งานโหมด video reference เพื่อสร้างช็อตต่อเนื่องจากคลิปอ้างอิง',
+      'การใช้งานโหมด frame เพื่อสร้างซีนต่อเนื่อง'
+    ],
+    pricing: [
+      {
+        title: 'Online สอนสด 1:1 ผ่าน Google Meet',
+        description: 'รูปแบบการเรียน: ออนไลน์สอนสดเท่านั้น',
+        price: '3,000 บาท'
+      }
+    ]
+  },
+  {
     id: 'master-of-horror',
     title: 'Master of Horror',
     description: 'คอร์สต่อยอดสำหรับสายสยองขวัญโดยเฉพาะ เจาะลึกเทคนิคการสร้างความกลัวผ่านภาพยนตร์',
@@ -365,4 +394,3 @@ export const ARTICLES_DATA: Article[] = [
     ]
   }
 ];
-

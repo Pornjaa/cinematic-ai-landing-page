@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { BANK_DETAILS, ADMIN_EMAIL, FACEBOOK_PAGE_URL } from '../constants';
 import SEO from './SEO';
@@ -24,8 +25,8 @@ const EnrollmentPage: React.FC = () => {
 
   // Pricing Logic
   useEffect(() => {
-    if (course === 'horror') {
-      setStudyType('private'); // Master of Horror only has private option
+    if (course === 'horror' || course === 'kling-o1') {
+      setStudyType('private'); // Master of Horror and Kling o1 only have private option
       setPrice('3,000');
     } else if (course === 'kling') {
       if (studyType === 'group') {
@@ -169,6 +170,7 @@ Email: ${formData.email}
                 className="w-full bg-cinematic-900 border border-gray-600 rounded-lg p-3 text-white focus:ring-2 focus:ring-cinematic-accent focus:border-transparent outline-none transition-all"
               >
                 <option value="kling">Generative Kling</option>
+                <option value="kling-o1">Kling o1 Master Class</option>
                 <option value="horror">Master of Horror</option>
               </select>
             </div>
@@ -180,13 +182,13 @@ Email: ${formData.email}
                 name="studyType" 
                 value={studyType}
                 onChange={(e) => setStudyType(e.target.value)}
-                disabled={course === 'horror'}
-                className={`w-full bg-cinematic-900 border border-gray-600 rounded-lg p-3 text-white focus:ring-2 focus:ring-cinematic-accent focus:border-transparent outline-none transition-all ${course === 'horror' ? 'opacity-70 cursor-not-allowed' : ''}`}
+                disabled={course === 'horror' || course === 'kling-o1'}
+                className={`w-full bg-cinematic-900 border border-gray-600 rounded-lg p-3 text-white focus:ring-2 focus:ring-cinematic-accent focus:border-transparent outline-none transition-all ${course === 'horror' || course === 'kling-o1' ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
                 {course === 'kling' && <option value="group">Online Group (กลุ่มปิด Facebook)</option>}
                 <option value="private">Online Live 1:1 (Google Meet)</option>
               </select>
-              {course === 'horror' && <p className="text-xs text-yellow-500 mt-1">* คอร์สนี้มีเฉพาะรูปแบบสอนสด 1:1 เท่านั้น</p>}
+              {(course === 'horror' || course === 'kling-o1') && <p className="text-xs text-yellow-500 mt-1">* คอร์สนี้มีเฉพาะรูปแบบสอนสด 1:1 เท่านั้น</p>}
             </div>
 
             {/* Price Display */}
