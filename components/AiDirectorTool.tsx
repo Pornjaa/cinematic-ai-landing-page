@@ -24,13 +24,13 @@ const AiDirectorTool: React.FC = () => {
 
 เนื้อเรื่อง: "${story}"
 
-กฎเหล็กที่คุณต้องปฏิบัติอย่างเคร่งครัด:
-1. Establishing the Anchor: ในฉากแรก คุณต้องกำหนด "ลักษณะสภาพแวดล้อม" (เช่น ชนิดของสะพาน, โทนสีฟ้าของฝน, ตึกในฉากหลัง) และ "ลักษณะตัวละคร" (เสื้อผ้า, ทรงผม) ให้ชัดเจนที่สุด
-2. Visual Inheritance: ทุกฉากที่ตามมา "ต้อง" ใช้รายละเอียดสภาพแวดล้อมและตัวละครตัวเดิมจากฉากแรก ห้ามเปลี่ยนชนิดสะพานหรือเปลี่ยนสถานที่เด็ดขาด
-3. Camera Orientation: ต้องระบุทิศทางกล้องอย่างละเอียด (เช่น Frontal View, 45-degree Side Profile, View from Behind, Low-angle Eye Level, Wide Establishing Shot)
-4. Cinematic Reasoning (ภาษาไทย): ต้องอธิบายเหตุผลความต่อเนื่อง เช่น "ใช้มุมมองจากด้านหลัง (Back View) ของแฟนหนุ่ม เพื่อให้เห็นหญิงสาววิ่งเข้ามาจากระยะไกลบนสะพานไม้สีแดงตัวเดิม"
-5. Optimized Prompt (ภาษาอังกฤษ): ต้องเริ่มด้วยรายละเอียดกล้อง ตามด้วยลักษณะตัวละครที่คงที่ และลักษณะสถานที่ที่คงที่ เช่น "[Camera Direction], [Character Descs], [Environment Descs from Shot 1], cinematic lighting, 8k"
-6. บังคับแตกอย่างน้อย 5 ช็อตเพื่อให้เห็นความต่อเนื่องของเรื่องราว`,
+กฎเหล็กที่คุณต้องปฏิบัติอย่างเคร่งครัดเพื่อป้องกันภาพกระโดด (Continuity Errors):
+1. THE ANCHOR (ฉากแรก): ในช็อตที่ 1 คุณต้องกำหนดรายละเอียด "สถานที่" และ "ตัวละคร" ให้ละเอียดที่สุด (เช่น สะพานไม้สีแดงที่มีโคมไฟญี่ปุ่นสไตล์เกียวโต, หญิงสาวผมยาวในชุดเดรสสีขาวพริ้ว)
+2. VISUAL INHERITANCE (ทุกฉากที่ตามมา): ทุกช็อตต่อจากช็อตแรก "ต้อง" คัดลอกรายละเอียดสถานที่และตัวละครจากช็อตแรกไปใช้เสมอ ห้ามเปลี่ยนชนิดสะพานหรือสไตล์เสื้อผ้าเด็ดขาด แม้มุมกล้องจะเปลี่ยนไป
+3. MANDATORY CAMERA ORIENTATION: ต้องระบุทิศทางกล้องให้ชัดเจน (e.g., Frontal View, Side Profile, Back View, Low-angle looking up) เพื่อให้ช็อตดูต่อกันได้จริง
+4. CINEMATIC REASONING (ภาษาไทย): อธิบายว่าช็อตนี้เชื่อมกับช็อตก่อนหน้าอย่างไร เพื่อให้คนทำหนังเข้าใจเหตุผลของการวางกล้อง
+5. OPTIMIZED PROMPT (ภาษาอังกฤษ): ต้องเริ่มด้วยรายละเอียดกล้อง ตามด้วย Visual Anchors ที่คงที่เสมอเพื่อให้ AI เจนภาพที่ดูเป็นเรื่องเดียวกัน
+6. บังคับแตกอย่างน้อย 5-6 ช็อตเพื่อให้เห็น Flow ของเรื่องราวอย่างสมบูรณ์`,
         config: {
           responseMimeType: 'application/json',
           responseSchema: {
@@ -43,11 +43,11 @@ const AiDirectorTool: React.FC = () => {
                   properties: {
                     sceneNumber: { type: Type.INTEGER },
                     action: { type: Type.STRING, description: "เหตุการณ์ในฉาก" },
-                    shotSize: { type: Type.STRING, description: "ระยะภาพ (e.g. Medium Shot, Close-up)" },
-                    angle: { type: Type.STRING, description: "มุมก้ม/เงย (e.g. Low Angle, Eye Level)" },
-                    orientation: { type: Type.STRING, description: "ทิศทางกล้อง (e.g. Front View, 45-degree Side Profile, Back View)" },
-                    lighting: { type: Type.STRING, description: "การจัดแสง (e.g. Moody blue rain light, Neon glow)" },
-                    cinematicReasoning: { type: Type.STRING, description: "การวิเคราะห์ความต่อเนื่องและการกำกับ (ภาษาไทย)" },
+                    shotSize: { type: Type.STRING, description: "ระยะภาพ" },
+                    angle: { type: Type.STRING, description: "มุมก้ม/เงย" },
+                    orientation: { type: Type.STRING, description: "ทิศทางกล้อง (Front, Side, Back, etc.)" },
+                    lighting: { type: Type.STRING, description: "การจัดแสง" },
+                    cinematicReasoning: { type: Type.STRING, description: "การวิเคราะห์ความต่อเนื่อง (ภาษาไทย)" },
                     optimizedPrompt: { type: Type.STRING, description: "Prompt ที่คุมความต่อเนื่องเป๊ะๆ (ภาษาอังกฤษ)" },
                   },
                   required: ['sceneNumber', 'action', 'shotSize', 'angle', 'orientation', 'lighting', 'cinematicReasoning', 'optimizedPrompt'],
@@ -89,12 +89,12 @@ const AiDirectorTool: React.FC = () => {
             Masterclass Continuity Tool
           </div>
           <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 tracking-tight">AI Prompt <span className="text-cinematic-accent">Buddy</span></h1>
-          <p className="text-gray-400 font-light text-lg">ช่วยแตกช็อตและคุมความต่อเนื่อง (Visual Continuity) ให้กับหนังของคุณ</p>
+          <p className="text-gray-400 font-light text-lg">วิเคราะห์การแตกช็อตและคุมความต่อเนื่อง (Visual Continuity) ให้กับหนังของคุณ</p>
           
           <div className="mt-6 p-5 bg-cinematic-accent/5 border border-cinematic-accent/20 rounded-2xl inline-block text-left max-w-2xl relative overflow-hidden group">
              <div className="absolute top-0 left-0 w-1 h-full bg-cinematic-accent"></div>
              <p className="text-xs text-gray-300 leading-relaxed pl-2">
-                <strong>📢 หมายเหตุสำคัญ:</strong> เครื่องมือนี้ใช้สำหรับ <strong>ฝึกการแตกช็อตและการเขียน Prompt เบื้องต้น</strong> เท่านั้น การใช้เพียง Prompt ไม่สามารถคุมหน้าตาตัวละครหรือฉากให้เหมือนเดิม 100% ได้ หากต้องการความแม่นยำระดับมืออาชีพ แนะนำให้ใช้ <strong>Google Nano Banana (Gemini)</strong> ในโหมด Reference ซึ่งเรามีการสอนเทคนิคนี้อย่างละเอียดในคอร์สของ <strong>Cinematic AI</strong>
+                <strong>📢 หมายเหตุสำคัญ:</strong> เครื่องมือนี้ใช้สำหรับ <strong>ฝึกการแตกช็อตและการเขียน Prompt เบื้องต้น</strong> เท่านั้น หากต้องการความแม่นยำระดับมืออาชีพ แนะนำให้ใช้ <strong>Google Nano Banana (Gemini)</strong> ซึ่งเราสอนเทคนิคเจาะลึกที่ <strong>Cinematic AI</strong>
              </p>
           </div>
         </div>
@@ -138,17 +138,14 @@ const AiDirectorTool: React.FC = () => {
              </div>
 
              <div className="relative">
-               {/* Vertical Continuity Line */}
                <div className="absolute left-[20px] md:left-[40px] top-10 bottom-10 w-0.5 bg-gradient-to-b from-cinematic-accent via-gray-700 to-cinematic-accent/20"></div>
 
                <div className="space-y-12">
                  {analysis.scenes.map((scene, index) => (
                    <div key={index} className="relative pl-12 md:pl-24 group">
-                     {/* Timeline Node */}
                      <div className="absolute left-[12px] md:left-[32px] top-6 w-4 h-4 rounded-full bg-cinematic-accent border-4 border-cinematic-900 z-10 shadow-[0_0_15px_rgba(229,9,20,0.6)] group-hover:scale-125 transition-transform duration-300"></div>
                      
                      <div className="bg-cinematic-800 rounded-3xl border border-gray-700 overflow-hidden shadow-2xl flex flex-col lg:flex-row transition-all duration-300 hover:border-cinematic-accent/40 hover:shadow-cinematic-accent/5">
-                       {/* Shot Metadata Side */}
                        <div className="lg:w-[280px] p-8 bg-black/40 border-b lg:border-b-0 lg:border-r border-gray-700/50">
                           <div className="text-xs font-black text-cinematic-accent/40 mb-1 tracking-widest">SHOT {scene.sceneNumber}</div>
                           <div className="space-y-4">
@@ -164,14 +161,13 @@ const AiDirectorTool: React.FC = () => {
                           </div>
                        </div>
                        
-                       {/* Content Side */}
                        <div className="flex-1 p-8">
                           <h3 className="text-xl font-bold text-white mb-4 group-hover:text-cinematic-accent transition-colors">{scene.action}</h3>
                           
                           <div className="mb-6 p-5 bg-cinematic-accent/5 border-l-4 border-cinematic-accent rounded-r-2xl">
                              <div className="flex items-center gap-2 mb-2">
                                 <svg className="w-4 h-4 text-cinematic-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                                <p className="text-[11px] text-cinematic-accent font-black uppercase tracking-widest">Visual Continuity Analysis</p>
+                                <p className="text-[11px] text-cinematic-accent font-black uppercase tracking-widest">Visual Continuity Logic</p>
                              </div>
                              <p className="text-sm text-gray-300 font-light leading-relaxed italic">{scene.cinematicReasoning}</p>
                           </div>
@@ -200,37 +196,24 @@ const AiDirectorTool: React.FC = () => {
                </div>
              </div>
 
-             {/* Footer Tips with Educational Focus */}
              <div className="bg-gradient-to-br from-cinematic-800 to-black p-10 rounded-[40px] border border-gray-700 shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-cinematic-accent/5 blur-3xl rounded-full"></div>
                 <div className="relative z-10">
                    <div className="flex items-center gap-4 mb-8">
-                      <div className="w-12 h-12 bg-cinematic-accent rounded-2xl flex items-center justify-center shadow-lg shadow-cinematic-accent/20">
+                      <div className="w-12 h-12 bg-cinematic-accent rounded-2xl flex items-center justify-center shadow-lg">
                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.642.321a2 2 0 01-1.584 0l-.642-.321a6 6 0 00-3.86-.517l-2.387.477a2 2 0 00-1.022.547l-.34.34a2 2 0 000 2.828l1.245 1.245a2 2 0 002.828 0l.34-.34a2 2 0 00.547-1.022l.477-2.387a6 6 0 00-.517-3.86l-.321-.642a2 2 0 010-1.584l.321-.642a6 6 0 00.517-3.86l-.477-2.387a2 2 0 00-.547-1.022l-.34-.34a2 2 0 00-2.828 0" /></svg>
                       </div>
                       <h2 className="text-3xl font-bold text-white tracking-tight uppercase">Continuity Master Tips</h2>
                    </div>
-                   
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                      <div className="space-y-4">
-                         <h4 className="text-cinematic-accent font-bold text-sm uppercase tracking-widest">การกำกับความต่อเนื่อง</h4>
-                         <p className="text-gray-300 font-light leading-relaxed">{analysis.directorTips}</p>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 text-gray-300 font-light leading-relaxed">
+                      <div>
+                         <p>{analysis.directorTips}</p>
                       </div>
                       <div className="bg-cinematic-accent/10 border border-cinematic-accent/30 p-6 rounded-3xl">
-                         <h4 className="text-white font-bold text-sm mb-3 flex items-center gap-2">
-                            <span className="w-2 h-2 bg-cinematic-accent rounded-full animate-pulse"></span>
-                            PRO TIP: Character Consistency
-                         </h4>
-                         <p className="text-gray-400 text-xs leading-relaxed font-light">
-                            การเขียน Prompt เพียงอย่างเดียว มักจะทำให้หน้าตัวละครเปลี่ยนไปมาในแต่ละช็อต (Consistency Error) วิธีการแก้ปัญหาแบบมืออาชีพที่ <strong>Cinematic AI</strong> คือการใช้ <strong>Google Nano Banana (Gemini)</strong> ในการทำ Reference Character และ Reference Scene ซึ่งจะทำให้ภาพทุกช็อตของคุณมีสะพานตัวเดิม หน้าตาคนเดิม และแสงแบบเดิมเป๊ะๆ 
+                         <p className="text-sm">
+                           <strong>🚀 เคล็ดลับจากผู้เชี่ยวชาญ:</strong> หากต้องการให้วิดีโอมีความต่อเนื่องเป๊ะที่สุด (เช่น หน้าตัวละครเดิม 100%) การเขียน Prompt เพียงอย่างเดียวไม่เพียงพอ คุณควรใช้ <strong>Google Nano Banana (Gemini)</strong> ในการทำ Image-to-Video Reference ซึ่งเรามีคอร์สสอนเจาะลึกเฉพาะทางที่นี่!
                          </p>
-                         <button className="mt-4 text-[10px] font-black text-cinematic-accent hover:underline uppercase tracking-widest">เรียนรู้วิธีการคุมหน้าตัวละครที่นี่ →</button>
                       </div>
-                   </div>
-
-                   <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row gap-6 items-center justify-between">
-                      <p className="text-gray-500 text-sm font-light">อยากเปลี่ยนจาก Prompt เป็นหนังที่สมบูรณ์แบบใช่ไหม?</p>
-                      <button className="px-10 py-4 bg-white text-black font-bold rounded-2xl hover:bg-gray-200 transition-all shadow-xl active:scale-95">ดูคอร์สเรียนทั้งหมด</button>
                    </div>
                 </div>
              </div>
