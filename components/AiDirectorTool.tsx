@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type, GenerateContentResponse } from '@google/genai';
 import React, { useState, useEffect } from 'react';
 import { AiStoryAnalysis } from '../types';
@@ -28,7 +27,11 @@ const AiDirectorTool: React.FC = () => {
 1. THE ANCHOR (ฉากแรก): ในช็อตที่ 1 คุณต้องกำหนดรายละเอียด "สถานที่" และ "ตัวละคร" ให้ละเอียดที่สุด (เช่น สะพานไม้สีแดงที่มีโคมไฟญี่ปุ่นสไตล์เกียวโต, หญิงสาวผมยาวในชุดเดรสสีขาวพริ้ว)
 2. VISUAL INHERITANCE (ทุกฉากที่ตามมา): ทุกช็อตต่อจากช็อตแรก "ต้อง" คัดลอกรายละเอียดสถานที่และตัวละครจากช็อตแรกไปใช้เสมอ ห้ามเปลี่ยนชนิดสะพานหรือสไตล์เสื้อผ้าเด็ดขาด แม้มุมกล้องจะเปลี่ยนไป
 3. MANDATORY CAMERA ORIENTATION: ต้องระบุทิศทางกล้องให้ชัดเจน (e.g., Frontal View, Side Profile, Back View, Low-angle looking up) เพื่อให้ช็อตดูต่อกันได้จริง
-4. CINEMATIC REASONING (ภาษาไทย): อธิบายว่าช็อตนี้เชื่อมกับช็อตก่อนหน้าอย่างไร เพื่อให้คนทำหนังเข้าใจเหตุผลของการวางกล้อง
+4. CINEMATIC REASONING (ภาษาไทย): คุณต้องเขียนอธิบายขยายความอย่างละเอียด โดยครอบคลุม:
+   - แปลความหมายของศัพท์เทคนิคที่ใช้ในช็อตนี้เป็นภาษาไทย (เช่น Side Profile คือ 'มุมด้านข้าง', Eye Level คือ 'มุมระดับสายตา')
+   - อธิบายว่าทำไมระยะภาพ (Shot Size) และทิศทางกล้อง (Orientation) นี้ถึงเหมาะสมกับเหตุการณ์และอารมณ์ในช็อตนั้นๆ
+   - อธิบายว่าการจัดแสง (Lighting) ช่วยส่งเสริมบรรยากาศหรืออารมณ์ในช็อตนี้อย่างไร
+   - ช็อตนี้เชื่อมโยงความต่อเนื่อง (Continuity) จากช็อตก่อนหน้าอย่างไร
 5. OPTIMIZED PROMPT (ภาษาอังกฤษ): ต้องเริ่มด้วยรายละเอียดกล้อง ตามด้วย Visual Anchors ที่คงที่เสมอเพื่อให้ AI เจนภาพที่ดูเป็นเรื่องเดียวกัน
 6. บังคับแตกอย่างน้อย 5-6 ช็อตเพื่อให้เห็น Flow ของเรื่องราวอย่างสมบูรณ์`,
         config: {
@@ -43,11 +46,11 @@ const AiDirectorTool: React.FC = () => {
                   properties: {
                     sceneNumber: { type: Type.INTEGER },
                     action: { type: Type.STRING, description: "เหตุการณ์ในฉาก" },
-                    shotSize: { type: Type.STRING, description: "ระยะภาพ" },
-                    angle: { type: Type.STRING, description: "มุมก้ม/เงย" },
-                    orientation: { type: Type.STRING, description: "ทิศทางกล้อง (Front, Side, Back, etc.)" },
+                    shotSize: { type: Type.STRING, description: "ระยะภาพ (e.g. Close-up)" },
+                    angle: { type: Type.STRING, description: "มุมกล้อง (e.g. Eye level)" },
+                    orientation: { type: Type.STRING, description: "ทิศทางกล้อง (e.g. Side profile)" },
                     lighting: { type: Type.STRING, description: "การจัดแสง" },
-                    cinematicReasoning: { type: Type.STRING, description: "การวิเคราะห์ความต่อเนื่อง (ภาษาไทย)" },
+                    cinematicReasoning: { type: Type.STRING, description: "การวิเคราะห์เหตุผลและคำแปลภาษาไทยอย่างละเอียด" },
                     optimizedPrompt: { type: Type.STRING, description: "Prompt ที่คุมความต่อเนื่องเป๊ะๆ (ภาษาอังกฤษ)" },
                   },
                   required: ['sceneNumber', 'action', 'shotSize', 'angle', 'orientation', 'lighting', 'cinematicReasoning', 'optimizedPrompt'],
@@ -167,9 +170,9 @@ const AiDirectorTool: React.FC = () => {
                           <div className="mb-6 p-5 bg-cinematic-accent/5 border-l-4 border-cinematic-accent rounded-r-2xl">
                              <div className="flex items-center gap-2 mb-2">
                                 <svg className="w-4 h-4 text-cinematic-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                                <p className="text-[11px] text-cinematic-accent font-black uppercase tracking-widest">Visual Continuity Logic</p>
+                                <p className="text-[11px] text-cinematic-accent font-black uppercase tracking-widest">Visual Analysis & Cinematic Meaning</p>
                              </div>
-                             <p className="text-sm text-gray-300 font-light leading-relaxed italic">{scene.cinematicReasoning}</p>
+                             <p className="text-sm text-gray-300 font-light leading-relaxed whitespace-pre-line italic">{scene.cinematicReasoning}</p>
                           </div>
 
                           <div className="relative group/prompt">
