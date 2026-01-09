@@ -40,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
         </button>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-6">
           {NAV_ITEMS.map((item) => (
             item.isButton ? (
               <button

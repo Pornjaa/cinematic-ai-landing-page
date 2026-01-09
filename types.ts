@@ -1,3 +1,4 @@
+
 export interface PortfolioItem {
   id: string;
   title: string;
@@ -7,7 +8,7 @@ export interface PortfolioItem {
 
 export interface NavItem {
   label: string;
-  id: string; // Changed from href to id for internal state routing
+  id: string;
   isButton?: boolean;
 }
 
@@ -32,14 +33,32 @@ export interface Article {
   id: string;
   title: string;
   excerpt: string;
-  content: string[]; // Array of paragraphs for simple rendering
+  content: string[];
   image: string;
   date: string;
-  youtubeId?: string; // Optional YouTube video ID for video articles
+  youtubeId?: string;
 }
 
 export interface FreeTutorialItem {
   id: string;
   youtubeUrl: string;
   title: string;
+}
+
+export interface AiScene {
+  sceneNumber: number;
+  action: string;
+  shotSize: string;
+  angle: string;
+  // orientation property added to fix property missing error in components/AiDirectorTool.tsx
+  orientation: string;
+  lighting: string;
+  cinematicReasoning: string;
+  optimizedPrompt: string;
+}
+
+export interface AiStoryAnalysis {
+  scenes: AiScene[];
+  directorTips: string;
+  suggestedStyle: string;
 }
