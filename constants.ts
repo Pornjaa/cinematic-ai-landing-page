@@ -60,6 +60,11 @@ export const FREE_TUTORIALS_DATA: FreeTutorialItem[] = [
     id: 'tut-5',
     youtubeUrl: 'https://youtu.be/S6neXP4m2TE',
     title: 'สอนฟรี!! ปักตะกร้าง่ายๆ ด้วย Sora2'
+  },
+  {
+    id: 'tut-6',
+    youtubeUrl: 'https://youtu.be/a8Ii13RgF2I',
+    title: 'สอนฟรี! เซลฟี่คนดัง'
   }
 ];
 
@@ -225,6 +230,22 @@ export const ENROLLMENT_STEPS = [
 ];
 
 export const ARTICLES_DATA: Article[] = [
+  {
+    id: 'kling-o1-image-upgrade',
+    title: 'เมื่อราชากินกล้วย (Kling o1 Image Generation upgrade)',
+    excerpt: 'Kling ทำเรื่องอีกแล้วนะครับ อัพเดทคราวนี้ไม่เรียกว่าอัพเดทด้วย เรียกว่าอัพเกรดใหญ่สำหรับโมเดลสร้างภาพนิ่ง o1...',
+    date: '15 กุมภาพันธ์ 2025',
+    image: 'https://i.postimg.cc/HksPcQnr/ride.jpg',
+    content: [
+      'Kling o1 image generation upgrade',
+      'Kling ทำเรื่องอีกแล้วนะครับ อัพเดทคราวนี้ไม่เรียกว่าอัพเดทด้วย เรียกว่าอัพเกรดใหญ่สำหรับโมเดลสร้างภาพนิ่ง o1',
+      '- เพิ่มรายละเอียดและความสมจริงของภาพ',
+      '- เพิ่มความเข้าใจการสร้างภาพในแบบภาพยนตร์ทั้งภาษาของภาพและโทนสี',
+      '- เพิ่มความแม่นยำในการใช้ภาพอ้างอิงเพื่อสร้างภาพต่อเนื่อง',
+      'เรียกได้ว่าไม่ต้องออกจาก kling กันเลยอยู่กันจนครบจบกระบวนการตั้งแต่ภาพนิ่งยันวิดีโอ',
+      'ทดสอบด้วยการทำซีนต่อเนื่องด้วยภาพสไตล์หนังโรแมนติกญี่ปุ่นโทนสีอ่อนๆ'
+    ]
+  },
   {
     id: 'nano-banana-pro',
     title: 'กล้วยที่ไม่เคยกล้วย (Nano Banana Pro)',
