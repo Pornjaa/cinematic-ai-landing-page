@@ -12,6 +12,7 @@ import EnrollmentPage from './components/EnrollmentPage';
 import ShowreelPage from './components/ShowreelPage';
 import FAQSection from './components/FAQSection';
 import AiDirectorTool from './components/AiDirectorTool';
+import CharacterPrompter from './components/CharacterPrompter';
 import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL } from './constants';
 
 const App: React.FC = () => {
@@ -24,6 +25,7 @@ const App: React.FC = () => {
       if (path === '/free-tutorials') return 'free-tutorials';
       if (path === '/enroll') return 'enroll';
       if (path === '/ai-director') return 'ai-director';
+      if (path === '/character-prompter') return 'character-prompter';
       return 'home';
     } catch (e) {
       return 'home';
@@ -53,6 +55,7 @@ const App: React.FC = () => {
       case 'free-tutorials': targetPath = '/free-tutorials'; break;
       case 'enroll': targetPath = '/enroll'; break;
       case 'ai-director': targetPath = '/ai-director'; break;
+      case 'character-prompter': targetPath = '/character-prompter'; break;
       default: targetPath = '/';
     }
     
@@ -88,6 +91,10 @@ const App: React.FC = () => {
 
         {currentPage === 'ai-director' && (
           <AiDirectorTool />
+        )}
+
+        {currentPage === 'character-prompter' && (
+          <CharacterPrompter />
         )}
 
         {currentPage === 'showreel-page' && <ShowreelPage />}
