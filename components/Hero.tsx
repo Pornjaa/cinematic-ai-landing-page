@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL, HERO_BACKGROUNDS, SITE_URL, SITE_NAME, SITE_LOGO, ADMIN_EMAIL } from '../constants';
+import { FACEBOOK_PAGE_URL, YOUTUBE_URL, TIKTOK_URL, HERO_BACKGROUNDS, SITE_URL, SITE_NAME, SITE_LOGO, ADMIN_EMAIL, COURSES_DATA } from '../constants';
 import SEO from './SEO';
 
 const Hero: React.FC = () => {
@@ -83,57 +83,83 @@ const Hero: React.FC = () => {
     }
   };
 
-  // Schema for Organization (AEO Critical)
-  const organizationSchema = {
+  // Schema for Organization & Course Catalog (AEO Critical)
+  const combinedSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": SITE_NAME,
-    "url": SITE_URL,
-    "logo": SITE_LOGO,
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": ADMIN_EMAIL,
-      "contactType": "customer support"
-    },
-    "sameAs": [
-      FACEBOOK_PAGE_URL,
-      YOUTUBE_URL,
-      TIKTOK_URL
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": SITE_NAME,
+        "url": SITE_URL,
+        "logo": SITE_LOGO,
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": ADMIN_EMAIL,
+          "contactType": "customer support"
+        },
+        "sameAs": [
+          FACEBOOK_PAGE_URL,
+          YOUTUBE_URL,
+          TIKTOK_URL
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "name": "คอร์สเรียน AI Filmmaking ยอดนิยม",
+        "description": "คอร์สสอนสร้างภาพยนตร์ด้วย AI ระดับมืออาชีพ",
+        "itemListElement": COURSES_DATA.map((course, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "item": {
+            "@type": "Course",
+            "name": course.title,
+            "description": course.description,
+            "provider": {
+              "@type": "Organization",
+              "name": SITE_NAME
+            }
+          }
+        }))
+      }
     ]
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-cinematic-900">
       <SEO 
         title="สถาบันสอนสร้างภาพยนตร์ด้วย AI"
         description="ปลดล็อกศักยภาพการสร้างภาพยนตร์ระดับฮอลลีวูดด้วยพลังแห่ง AI เรียนรู้ Kling, Nano Banana, Veo และเทคนิคการเล่าเรื่อง"
-        schema={organizationSchema}
-        schemaId="seo-organization"
+        schema={combinedSchema}
+        schemaId="seo-home-combined"
       />
 
       {/* 
-        Background Layer System:
-        1. We map through HERO_BACKGROUNDS to create slideshow divs.
-        2. We control opacity to cross-fade between them.
-        3. If localBgImage exists, it sits on top.
+        Background Layer System Optimized for LCP:
+        - ใช้ <img> แทน CSS Background-image เพื่อให้ Browser ลำดับความสำคัญในการโหลดได้ดีกว่า
+        - ใช้ fetchpriority="high" สำหรับรูปปัจจุบัน เพื่อลดค่า LCP
       */}
       
       {/* Slideshow Layers */}
       {HERO_BACKGROUNDS.map((bg, index) => (
-        <div
+        <img
           key={bg}
-          className={`absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
+          src={bg}
+          alt=""
+          role="presentation"
+          fetchPriority={(!localBgImage && currentBgIndex === index) ? "high" : "low"}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
             !localBgImage && currentBgIndex === index ? 'opacity-100' : 'opacity-0'
           }`}
-          style={{ backgroundImage: `url(${bg})` }}
         />
       ))}
 
-      {/* Local Override Layer (shown only if set) */}
+      {/* Local Override Layer */}
       {localBgImage && (
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center z-10"
-          style={{ backgroundImage: `url(${localBgImage})` }}
+        <img
+          src={localBgImage}
+          alt=""
+          fetchPriority="high"
+          className="absolute inset-0 w-full h-full object-cover z-10"
         />
       )}
 
@@ -145,7 +171,6 @@ const Hero: React.FC = () => {
         <div className="absolute top-24 right-6 z-50 bg-black/80 backdrop-blur border border-gray-700 p-4 rounded-lg shadow-2xl flex flex-col gap-3 w-72">
           <span className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center">Admin Mode (Preview)</span>
           
-          {/* File Upload */}
           <button 
             onClick={() => fileInputRef.current?.click()}
             className="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white text-xs rounded border border-gray-600 transition-colors flex items-center justify-center gap-2"
@@ -161,7 +186,6 @@ const Hero: React.FC = () => {
             accept="image/*"
           />
 
-          {/* URL Input */}
           <div className="flex gap-1">
             <input 
               type="text" 
@@ -183,10 +207,6 @@ const Hero: React.FC = () => {
           >
             รีเซ็ตเป็นสไลด์โชว์
           </button>
-          
-          <p className="text-[10px] text-gray-500 text-center leading-tight">
-            *การเปลี่ยนภาพที่นี่เห็นเฉพาะคุณ (Local Storage)
-          </p>
         </div>
       )}
 

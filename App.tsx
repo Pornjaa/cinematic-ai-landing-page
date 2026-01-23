@@ -118,7 +118,8 @@ const App: React.FC = () => {
       
       <footer className="bg-black py-12 border-t border-gray-900 mt-auto">
         <div className="container mx-auto px-6 text-center">
-          <h3 className="text-2xl font-display font-bold mb-4">CINEMATIC AI</h3>
+          {/* Changed <h3> to <div> to maintain heading hierarchy integrity for SEO */}
+          <div className="text-2xl font-display font-bold mb-4">CINEMATIC AI</div>
           <div className="text-sm text-gray-600">
             &copy; {new Date().getFullYear()} Cinematic AI. All rights reserved.
           </div>

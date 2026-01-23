@@ -43,30 +43,34 @@ const CharacterPrompter: React.FC = () => {
   };
 
   const generateCharacter = async () => {
+    if (isLoading) return;
+    
     setIsLoading(true);
+    setResult(null);
+    
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const promptText = `คุณเป็น "World-Class AI Character Artist" หน้าที่ของคุณคือสร้าง Prompt สำหรับเจนภาพตัวละครที่สมจริงที่สุด (Hyper-realistic) 
 อ้างอิงจากข้อมูลที่ผู้ใช้กรอกด้านล่างนี้ หากช่องไหนว่างไว้ ให้คุณใช้จินตนาการระดับมาสเตอร์ของคุณเติมเต็มให้สมบูรณ์และดูเป็นงาน Cinematic ระดับโปร
 
 ข้อมูลตัวละคร:
-- เพศ: ${formData.gender || 'AI คิดให้'}
-- อายุ: ${formData.age || 'AI คิดให้'}
-- สีผิว: ${formData.skin || 'AI คิดให้'}
-- ทรงผม: ${formData.hair || 'AI คิดให้'}
-- ชุดที่ใส่: ${formData.outfit || 'AI คิดให้'}
-- ท่าโพสต์: ${formData.pose || 'AI คิดให้'}
-- สถานที่: ${formData.location || 'AI คิดให้'}
-- มุมกล้อง: ${formData.angle || 'AI คิดให้'}
-- ลักษณะแสง: ${formData.lighting || 'AI คิดให้'}
-- สัดส่วนภาพ: ${formData.aspectRatio || 'AI คิดให้'}
-- ระยะภาพ: ${formData.shotSize || 'AI คิดให้'}
-- เลนส์และกล้อง: ${formData.lens || 'AI คิดให้'}
+- เพศ: ${formData.gender || 'ตามความเหมาะสม'}
+- อายุ: ${formData.age || 'ตามความเหมาะสม'}
+- สีผิว: ${formData.skin || 'ตามความเหมาะสม'}
+- ทรงผม: ${formData.hair || 'ตามความเหมาะสม'}
+- ชุดที่ใส่: ${formData.outfit || 'ตามความเหมาะสม'}
+- ท่าโพสต์: ${formData.pose || 'ตามความเหมาะสม'}
+- สถานที่: ${formData.location || 'ตามความเหมาะสม'}
+- มุมกล้อง: ${formData.angle || 'ตามความเหมาะสม'}
+- ลักษณะแสง: ${formData.lighting || 'ตามความเหมาะสม'}
+- สัดส่วนภาพ: ${formData.aspectRatio || 'ตามความเหมาะสม'}
+- ระยะภาพ: ${formData.shotSize || 'ตามความเหมาะสม'}
+- เลนส์และกล้อง: ${formData.lens || 'ตามความเหมาะสม'}
 
 รูปแบบการตอบกลับ (JSON):
 {
-  "prompt": "Detailed English Prompt for AI Image Generation (Optimized for Midjourney/Kling)",
-  "explanation": "คำอธิบายภาพนี้ภาษาไทยแบบละเอียด รวมถึงเหตุผลที่คุณเลือกรายละเอียดเพิ่มเติมให้ผู้ใช้"
+  "prompt": "Detailed English Prompt for AI Image Generation",
+  "explanation": "คำอธิบายภาพนี้ภาษาไทยแบบละเอียด"
 }`;
 
       const response = await ai.models.generateContent({
@@ -85,11 +89,25 @@ const CharacterPrompter: React.FC = () => {
         }
       });
 
-      const data = JSON.parse(response.text || '{}');
+      const rawText = response.text || '';
+      if (!rawText) throw new Error('AI ไม่ส่งข้อมูลกลับมา (อาจติดตัวกรองความปลอดภัย)');
+
+      // ฟังก์ชันสกัด JSON เผื่อกรณี AI ส่ง Markdown ครอบมา
+      const extractJson = (text: string) => {
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          const jsonMatch = text.match(/\{[\s\S]*\}/);
+          if (jsonMatch) return JSON.parse(jsonMatch[0]);
+          throw e;
+        }
+      };
+
+      const data = extractJson(rawText.trim());
       setResult(data);
-    } catch (error) {
-      console.error(error);
-      alert('เกิดข้อผิดพลาดในการสร้างตัวละคร กรุณาลองใหม่');
+    } catch (error: any) {
+      console.error("Character generation error:", error);
+      alert('เกิดข้อผิดพลาด: ' + (error.message || 'ไม่สามารถสร้างข้อมูลได้ในขณะนี้ กรุณาลองใหม่ด้วยคำอธิบายที่ต่างออกไป'));
     } finally {
       setIsLoading(false);
     }
@@ -99,7 +117,7 @@ const CharacterPrompter: React.FC = () => {
     if (result) {
       navigator.clipboard.writeText(result.prompt);
       setIsCopied(true);
-      setTimeout(() => setIsCopied(null), 2000);
+      setTimeout(() => setIsCopied(false), 2000);
     }
   };
 
@@ -135,7 +153,6 @@ const CharacterPrompter: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          {/* Form Section */}
           <div className="bg-cinematic-800 p-8 rounded-[32px] border border-gray-800 shadow-2xl space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {formFields.map((field) => (
@@ -166,14 +183,13 @@ const CharacterPrompter: React.FC = () => {
             </button>
           </div>
 
-          {/* Result Section */}
           <div className="space-y-6">
-            {!result && !isLoading ? (
+            {!result && !isLoading && (
               <div className="h-full min-h-[400px] border-2 border-dashed border-gray-800 rounded-[32px] flex flex-col items-center justify-center p-10 text-center text-gray-600">
                  <svg className="w-16 h-16 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                  <p className="font-light">กรอกรายละเอียดด้านซ้ายแล้วกดปุ่มเพื่อดูผลลัพธ์</p>
               </div>
-            ) : null}
+            )}
 
             {isLoading && (
                <div className="h-full min-h-[400px] bg-cinematic-800/40 rounded-[32px] border border-gray-800 p-8 flex flex-col items-center justify-center animate-pulse">
