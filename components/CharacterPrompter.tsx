@@ -51,7 +51,7 @@ const CharacterPrompter: React.FC = () => {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const promptText = `คุณเป็น "World-Class AI Character Artist" หน้าที่ของคุณคือสร้าง Prompt สำหรับเจนภาพตัวละครที่สมจริงที่สุด (Hyper-realistic) 
-อ้างอิงจากข้อมูลที่ผู้ใช้กรอกด้านล่างนี้ หากช่องไหนว่างไว้ ให้คุณใช้จินตนาการระดับมาสเตอร์ของคุณเติมเต็มให้สมบูรณ์และดูเป็นงาน Cinematic ระดับโปร
+อ้างอิงจากข้อมูลที่ผู้ใช้กรอกด้านล่างนี้ หากช่องไหนว่างไว้ ให้คุณใช้จินตนาการระดับมาสเตอร์ของคุณเติมเต็มให้สมด้วยสไตล์ Cinematic
 
 ข้อมูลตัวละคร:
 - เพศ: ${formData.gender || 'ตามความเหมาะสม'}
@@ -67,7 +67,7 @@ const CharacterPrompter: React.FC = () => {
 - ระยะภาพ: ${formData.shotSize || 'ตามความเหมาะสม'}
 - เลนส์และกล้อง: ${formData.lens || 'ตามความเหมาะสม'}
 
-รูปแบบการตอบกลับ (JSON):
+ตอบกลับเป็น JSON เท่านั้น:
 {
   "prompt": "Detailed English Prompt for AI Image Generation",
   "explanation": "คำอธิบายภาพนี้ภาษาไทยแบบละเอียด"
@@ -90,16 +90,16 @@ const CharacterPrompter: React.FC = () => {
       });
 
       const rawText = response.text || '';
-      if (!rawText) throw new Error('AI ไม่ส่งข้อมูลกลับมา (อาจติดตัวกรองความปลอดภัย)');
+      if (!rawText) throw new Error('AI ไม่ส่งข้อมูลกลับมา');
 
-      // ฟังก์ชันสกัด JSON เผื่อกรณี AI ส่ง Markdown ครอบมา
+      // Robust JSON Extraction
       const extractJson = (text: string) => {
         try {
           return JSON.parse(text);
         } catch (e) {
           const jsonMatch = text.match(/\{[\s\S]*\}/);
           if (jsonMatch) return JSON.parse(jsonMatch[0]);
-          throw e;
+          throw new Error('ไม่สามารถประมวลผลรูปแบบข้อมูลได้');
         }
       };
 
@@ -107,7 +107,7 @@ const CharacterPrompter: React.FC = () => {
       setResult(data);
     } catch (error: any) {
       console.error("Character generation error:", error);
-      alert('เกิดข้อผิดพลาด: ' + (error.message || 'ไม่สามารถสร้างข้อมูลได้ในขณะนี้ กรุณาลองใหม่ด้วยคำอธิบายที่ต่างออกไป'));
+      alert('เกิดข้อผิดพลาด: ' + (error.message || 'กรุณาลองใหม่อีกครั้ง'));
     } finally {
       setIsLoading(false);
     }
@@ -122,18 +122,18 @@ const CharacterPrompter: React.FC = () => {
   };
 
   const formFields = [
-    { name: 'gender', label: 'ตัวละครเป็นเพศใด', placeholder: 'ชาย, หญิง, ไม่ระบุ' },
-    { name: 'age', label: 'อายุ', placeholder: '25 ปี, วัยกลางคน, 60 ปี' },
-    { name: 'skin', label: 'สีผิว', placeholder: 'ผิวแทน, ผิวขาวเหลือง, ผิวเข้มเนียน' },
-    { name: 'hair', label: 'ทรงผม', placeholder: 'ผมยาวลอนสีน้ำตาล, ผมสั้นสไตล์พังก์' },
-    { name: 'outfit', label: 'ชุดที่ใส่', placeholder: 'ชุดกิโมโนร่วมสมัย, ชุดแจ็คเก็ตหนัง' },
-    { name: 'pose', label: 'ท่าโพสต์', placeholder: 'ยืนกอดอก, นั่งเหม่อมองท้องฟ้า' },
-    { name: 'location', label: 'สถานที่', placeholder: 'ป้ายรถเมล์ตอนฝนตก, ตลาดสดเก่ายามเช้า' },
-    { name: 'angle', label: 'มุมกล้อง', placeholder: 'Low Angle (มุมต่ำ), Eye Level' },
-    { name: 'lighting', label: 'ลักษณะแสง', placeholder: 'แสงเช้าโทนอบอุ่น, แสงเย็น golden hour' },
-    { name: 'aspectRatio', label: 'สัดส่วนภาพ', placeholder: '16:9, 9:16, 2.35:1' },
-    { name: 'shotSize', label: 'ระยะภาพ', placeholder: 'Close-up, Wide Shot, Full Body' },
-    { name: 'lens', label: 'เลนส์และกล้อง', placeholder: '35mm f/1.4, Sony A7S III' },
+    { name: 'gender', label: 'เพศ', placeholder: 'ชาย, หญิง' },
+    { name: 'age', label: 'อายุ', placeholder: 'ระบุอายุ' },
+    { name: 'skin', label: 'สีผิว', placeholder: 'ระบุสีผิว' },
+    { name: 'hair', label: 'ทรงผม', placeholder: 'ระบุทรงผม' },
+    { name: 'outfit', label: 'ชุดที่ใส่', placeholder: 'ระบุชุด' },
+    { name: 'pose', label: 'ท่าโพสต์', placeholder: 'ระบุท่าทาง' },
+    { name: 'location', label: 'สถานที่', placeholder: 'ระบุฉากหลัง' },
+    { name: 'angle', label: 'มุมกล้อง', placeholder: 'มุมต่ำ, ระดับสายตา' },
+    { name: 'lighting', label: 'แสง', placeholder: 'แสงเย็น, แสงนีออน' },
+    { name: 'aspectRatio', label: 'สัดส่วน', placeholder: '16:9, 9:16' },
+    { name: 'shotSize', label: 'ระยะภาพ', placeholder: 'Close-up, Wide' },
+    { name: 'lens', label: 'เลนส์', placeholder: '35mm, 85mm' },
   ];
 
   return (
